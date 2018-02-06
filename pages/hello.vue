@@ -6,14 +6,25 @@
 export default {
   asyncData (context) {
     // called every time before loading the component
-    return { name: 'World' }
+    return {
+      name: 'World',
+      title: 'Hello page'
+    }
   },
   fetch () {
     // The `fetch` method is used to fill the store before rendering the page
-  }
-  // head () {
+  },
+  head () {
     // Set Meta Tags for this Page
-  // }
+    return {
+      title: this.title,
+      meta: [
+        {
+          hid: 'description', name: 'description', content: 'My custom description'
+        }
+      ]
+    }
+  }
 }
 </script>
 
