@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import AppLogo from '~/components/AppLogo.vue'
 
 export default {

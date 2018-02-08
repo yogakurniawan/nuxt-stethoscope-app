@@ -20,7 +20,12 @@ module.exports = {
   /*
   ** Build configuration
   */
+  css: [
+    { src: '@/assets/main.scss' }
+  ],
   build: {
+    vendor: ['axios'],
+    analyze: true,
     /*
     ** Run ESLint on save
     */
