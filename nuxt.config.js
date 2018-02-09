@@ -21,7 +21,8 @@ module.exports = {
   ** Build configuration
   */
   css: [
-    { src: '@/assets/main.scss' }
+    { src: '@/assets/main.scss' },
+    { src: 'normalize.css/normalize.css', lang: 'css' }
   ],
   build: {
     vendor: ['axios'],
