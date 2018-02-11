@@ -2,6 +2,7 @@ module.exports = {
   /*
   ** Headers of the page
   */
+  mode: 'universal',
   head: {
     title: 'nuxt-app',
     meta: [
@@ -24,6 +25,20 @@ module.exports = {
     { src: '@/assets/main.scss' },
     { src: 'normalize.css/normalize.css', lang: 'css' }
   ],
+  /*
+  ** Nuxt.js modules
+  */
+  modules: [
+    // Doc: https://github.com/nuxt-community/axios-module#usage
+    '@nuxtjs/axios'
+  ],
+
+  /*
+  ** Axios module configuration
+  */
+  axios: {
+    // See https://github.com/nuxt-community/axios-module#options
+  },
   build: {
     vendor: ['axios'],
     analyze: true,

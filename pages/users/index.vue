@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>Children of Users Page</h1>
-    <span>Message: {{ msg }}</span>
+    <input type="text" v-model="userId" />
+    <button @click="onLoadUsers">Submit</button>
   </div>
 </template>
 
@@ -10,8 +10,13 @@
 export default {
   data () {
     return {
-      msg: "Hello World I am child"
+      userId: ''
     }
-  }
+  },
+  methods: {
+    onLoadUsers() {
+      this.$router.push(`/users/${this.userId}`)
+    }
+  },
 }
 </script>

@@ -20,6 +20,7 @@
       </div>
       <div class="main">
         <p>Page with SCSS</p>
+        <button @click="$router.push('/products')">Go to products</button>
       </div>
     </div>
   </section>
