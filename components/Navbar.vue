@@ -3,19 +3,19 @@
     <div class="container">
       <div class="navbar-brand">
         <a href="/" class="navbar-item">Stethoscope App</a>
-        <div id="navbarBurger" class="navbar-burger is-active">
+        <div @click="toggle()" id="navbarBurger" :class="toggleClass" class="navbar-burger">
           <span></span>
           <span></span>
           <span></span>
         </div>
       </div>
-      <div id="navMenu" class="navbar-menu is-active">
+      <div id="navMenu" :class="toggleClass" class="navbar-menu">
         <div class="navbar-start">
           <div class="navbar-item is-hoverable">
-            <a href="/" class="navbar-link is-active">Home</a>
+            <a href="/" :class="toggleClass" class="navbar-link">Home</a>
           </div>
           <div class="navbar-item is-hoverable">
-            <a href="/" class="navbar-link is-active">Patients</a>
+            <a href="/" :class="toggleClass" class="navbar-link">Patients</a>
           </div>
         </div>
         <div class="navbar-end">
@@ -28,7 +28,23 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      isActive: false
+    }
+  },
+  methods: {
+    toggle() {
+      this.isActive = !this.isActive
+    }
+  },
+  computed: {
+    toggleClass() {
+      return {
+        'is-active': this.isActive
+      } 
+    }
+  },
 }
 </script>
 
@@ -131,16 +147,12 @@ export default {
   }
 }
 
-.navbar-burger span .navbar-burger span .navbar-burger .navbar-burger.is-active span .navbar-burger.is-active span:nth-child(2) {
-  opacity: 0;
-}
-
-.navbar-burger.is-active span:nth-child(3) {
-  -webkit-transform: translateY(-5px) rotate(-45deg);
-  transform: translateY(-5px) rotate(-45deg);
-}
-
 @media screen and (max-width: 1023px) {
+  .navbar {
+    &>.container {
+      display: block;
+    }
+  }
   .navbar,
   .navbar-menu {
     -webkit-overflow-scrolling: touch;
