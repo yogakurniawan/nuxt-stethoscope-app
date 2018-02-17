@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div v-on="$listeners">
+    <div>
       <slot />
       <br />
-      <button type="button" :class="btnStyle" v-bind="$attrs">Click {{ propA }}</button>
-      <HelloComponent v-bind:propB="$attrs.propB" />
+      <button type="button" :class="btnStyle">Click {{ propA }}</button>
+      <HelloComponent v-bind="$attrs" />
     </div>
   </div>
 </template>
