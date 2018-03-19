@@ -5,11 +5,7 @@
       <h1 class="title">
         nuxt-app
       </h1>
-      <AppButton propA="Bird" propB="Cat" @click="sayHello"><span>Hello Parent</span></AppButton>
-      <div class="main">
-        <p>Page with SCSS</p>
-        <button @click="$router.push('/products')">Go to products</button>
-      </div>
+      <AppButton @click="sayHello">Hello</AppButton>
     </div>
   </section>
 </template>
@@ -17,12 +13,14 @@
 <script>
 import axios from 'axios'
 import AppLogo from '~/components/AppLogo.vue'
-import AppButton from '~/components/Button.vue'
+import ButtonTest from '~/components/ButtonTest.vue'
+import AppButton from '~/components/Button'
 
 export default {
   components: {
     AppLogo,
-    AppButton
+    AppButton,
+    ButtonTest
   },
   methods: {
     sayHello() {

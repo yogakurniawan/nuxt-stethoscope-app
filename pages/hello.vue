@@ -1,34 +1,41 @@
 <template>
-  <h1 class="red">Hello {{ name }}!</h1>
+  <div class="container">
+    <h1 class="red">Hello {{ name }}!</h1>
+    <button @click="test">Hello</button>
+  </div>
 </template>
 
 <script>
 export default {
-  asyncData (context) {
-    // called every time before loading the component
+  data() {
     return {
-      name: 'World',
-      title: 'Hello page'
-    }
+      name: "Mars"
+    };
   },
-  fetch () {
-    // The `fetch` method is used to fill the store before rendering the page
-  },
-  head () {
-    // Set Meta Tags for this Page
-    return {
-      title: this.title,
-      meta: [
-        {
-          hid: 'description', name: 'description', content: 'My custom description'
-        }
-      ]
+  methods: {
+    async test() {
+      const A = {
+        name: "yoga kurniawan"
+      };
+      try {
+        const data = await new Promise((resolve, reject) => {
+          reject({
+            message: "error"
+          });
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   }
-}
+};
 </script>
 
-<style>
+<style lang="scss" scoped>
+.container {
+  position: relative;
+  top: 30px;
+}
 .red {
   color: red;
 }
