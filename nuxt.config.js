@@ -58,7 +58,7 @@ module.exports = {
     },
     // You cannot use ~/ or @/ here since it's a Webpack plugin
     styleResources: {
-      scss: './assets/variables.scss',
+      scss: ['./assets/variables.scss', './assets/functions.scss'],
       less: './assets/*.less'
     }
   }

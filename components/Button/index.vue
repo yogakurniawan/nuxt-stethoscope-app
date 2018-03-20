@@ -1,9 +1,9 @@
 <template>
   <button
     v-on="$listeners"
-    class="Button"
+    class="btn"
     :class="[
-
+      `btn-${type}-${color}`
     ]"
     >
     <slot>Button</slot>
@@ -83,17 +83,17 @@ fieldset:disabled a.btn {
 // Alternate buttons
 //
 
-@each $color, $value in $theme-colors {
-  .btn-#{$color} {
-    @include button-variant($value, $value);
-  }
-}
+// @each $color, $value in $theme-colors {
+//   .btn-#{$color} {
+//     @include button-variant($value, $value);
+//   }
+// }
 
-@each $color, $value in $theme-colors {
-  .btn-outline-#{$color} {
-    @include button-outline-variant($value);
-  }
-}
+// @each $color, $value in $theme-colors {
+//   .btn-outline-#{$color} {
+//     @include button-outline-variant($value);
+//   }
+// }
 
 
 //
@@ -106,7 +106,7 @@ fieldset:disabled a.btn {
   color: $link-color;
   background-color: transparent;
 
-  @include hover {
+  &:hover {
     color: $link-hover-color;
     text-decoration: $link-hover-decoration;
     background-color: transparent;
@@ -138,7 +138,7 @@ fieldset:disabled a.btn {
 
   // Vertically space out multiple block buttons
   + .btn-block {
-    margin-top: $btn-block-spacing-y;
+    margin-top: .5rem;
   }
 }
 

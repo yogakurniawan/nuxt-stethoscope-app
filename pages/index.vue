@@ -5,7 +5,7 @@
       <h1 class="title">
         nuxt-app
       </h1>
-      <AppButton @click="sayHello">Hello</AppButton>
+      <app-button @click="sayHello">Hello</app-button>
     </div>
   </section>
 </template>
