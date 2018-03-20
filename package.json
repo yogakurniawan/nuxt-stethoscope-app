@@ -15,6 +15,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.0.0",
     "axios": "^0.18.0",
+    "flexboxgrid": "^6.3.1",
     "normalize.css": "^7.0.0",
     "nuxt": "^1.4.0",
     "sanitize.css": "^5.0.0",

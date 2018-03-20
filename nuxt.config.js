@@ -24,7 +24,8 @@ module.exports = {
   css: [
     { src: '@/assets/main.scss' },
     { src: 'normalize.css/normalize.css', lang: 'css' },
-    { src: 'sanitize.css/sanitize.css', lang: 'css' }
+    { src: 'sanitize.css/sanitize.css', lang: 'css' },
+    { src: 'flexboxgrid/dist/flexboxgrid.min.css', lang: 'css' }
   ],
   /*
   ** Nuxt.js modules
