@@ -83,11 +83,9 @@ fieldset:disabled a.btn {
 // Alternate buttons
 //
 
-// @each $color, $value in $theme-colors {
-//   .btn-#{$color} {
-//     @include button-variant($value, $value);
-//   }
-// }
+.btn-normal-primary {
+  @include button-variant($primary, $primary);
+}
 
 // @each $color, $value in $theme-colors {
 //   .btn-outline-#{$color} {
