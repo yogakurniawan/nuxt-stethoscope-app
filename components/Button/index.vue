@@ -28,6 +28,7 @@
 
 <style lang="scss" scoped>
 .btn {
+  font-family: inherit;
   display: inline-block;
   font-weight: $btn-font-weight;
   text-align: center;
