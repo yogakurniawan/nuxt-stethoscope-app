@@ -1,77 +1,17 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
+import Vuex from "vuex"
 
-Vue.use(Vuex)
+import actions from "./actions"
+import mutations from "./mutations"
+import getters from "./getters"
 
-const store = () => new Vuex.Store({
-  state: {
-    todos: [],
-    wallpapers: []
-  },
-  getters: {
-    allTodos(state) {
-      return state.todos
+export default () => {
+  return new Vuex.Store({
+    state: {
+      token: null,
+      user: null
     },
-    activeTodos(state) {
-      return state.todos.filter(todo => !todo.completed)
-    },
-    completedTodos(state) {
-      return state.todos.filter(todo => todo.completed)
-    },
-    wallpapers(state) {
-      return state.wallpapers
-    }
-  },
-  mutations: {
-    SET_TODOS(state, todos) {
-      state.todos = todos
-    },
-    ADD_TODO(state, todo) {
-      state.todos.push(todo)
-    },
-    REMOVE_TODO(state, todo) {
-      var i = state.todos.indexOf(todo)
-      state.todos.splice(i, 1)
-    },
-    FILTER_TODOS(state, value) {
-      state.todos.forEach((todo) => {
-        todo.completed = !value
-      })
-    },
-    SET_WALLPAPERS(state, wallpapers) {
-      state.wallpapers = wallpapers
-    }
-  },
-  actions: {
-    addTodo({ commit }, todo) {
-      commit('ADD_TODO', todo)
-    },
-    setTodos({ commit }, todos) {
-      commit('SET_TODOS', todos)
-    },
-    removeTodo({ commit }, todo) {
-      commit('REMOVE_TODO', todo)
-    },
-    allDone({ state, commit }) {
-      var value = state.todos.filter(todo => todo.completed).length === state.todos.length
-      commit('FILTER_TODOS', value)
-    },
-    saveTodos({ state }) {
-      axios.put('/api/todos', { todos: state.todos })
-    },
-    async nuxtServerInit({ commit }, { req }) {
-      commit('SET_TODOS', req.session ? (req.session.todos || []) : [])
-      // option 1
-      const response = await axios.get('http://phonecatalogues.com/api/Wallpapers?filter[limit]=10&filter[skip]=0')
-      commit('SET_WALLPAPERS', response.data)
-
-      // option 2
-      // return axios.get('http://phonecatalogues.com/api/Wallpapers?filter[limit]=10&filter[skip]=0')
-      // .then(response => commit('SET_WALLPAPERS', response.data))
-        // .catch(e => context.error(e))
-    }
-  }
-})
-
-export default store
+    actions,
+    mutations,
+    getters
+  })
+}

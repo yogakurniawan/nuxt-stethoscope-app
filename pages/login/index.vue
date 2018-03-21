@@ -37,12 +37,14 @@
         </div>
       </div>
     </div>
+    <app-footer></app-footer>
   </div>
 </template>
 
 <script>
 import LogoBar from '~/components/Login/LogoBar'
 import AppButton from '~/components/Button'
+import AppFooter from '~/components/Footer'
 import AppInput from '~/components/Forms/Input'
 
 export default {
@@ -51,6 +53,7 @@ export default {
     LogoBar,
     AppButton,
     AppInput,
+    AppFooter
   }
 };
 </script>

@@ -4,11 +4,11 @@ module.exports = {
   */
   mode: 'universal',
   head: {
-    title: 'nuxt-app',
+    title: 'Stethoscope App',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { hid: 'description', name: 'description', content: 'Cloud clinical management system - Stechoscope App' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
