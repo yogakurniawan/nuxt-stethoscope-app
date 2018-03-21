@@ -1,26 +1,37 @@
 <template>
   <div>
     <logo-bar></logo-bar>
-    <div class="container-fluid">
-      <div class="row center-xs">
-        <div class="col-xs-5">
-          <div class="login-container">
-            <div><h1>LOGIN</h1></div>
-            <div class="login-box">
-              <form action="">
-                <div class="login-field">
-                  <app-input type="text" name="username" placeholder="username" />
+    <div class="row center-xs">
+      <div class="col-xs-12 col-sm-8 col-md-7 col-lg-5">
+        <div class="login-container">
+          <div>
+            <h1>Sign In</h1>
+          </div>
+          <div class="login-box">
+            <form>
+              <div class="row center-xs">
+                <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7 login-field">
+                  <app-input type="text" name="username" placeholder="Username" />
                 </div>
-                <div class="login-field">
-                  <app-input type="password" name="password" placeholder="password" />
+              </div>
+              <div class="row center-xs">
+                <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7 login-field">
+                  <app-input type="password" name="password" placeholder="Password" />
                 </div>
-                <div class="login-button">
-                  <app-button>Login</app-button>
+              </div>
+              <div class="row center-xs">
+                <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7">
+                  <app-button class="login-button button push-right">Login</app-button>
                 </div>
-              </form>
-            </div>
-            <div class="signup-box">
-              hello
+              </div>
+            </form>
+          </div>
+          <div class="signup-box">
+            <div class="row center-xs">
+              <div class="col-xs-9 col-sm-6 col-md-4 col-lg-5 signup-text">Don't have an Account?</div>
+              <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+                <app-button class="button push-right">Sign Up</app-button>
+              </div>
             </div>
           </div>
         </div>
@@ -46,28 +57,40 @@ export default {
 
 <style lang="scss" scoped>
 .login-container {
-  margin: 1rem;
-  border: 2px solid $primary;
+  margin: 2rem 1rem;
+  border: 2px solid $secondary;
   border-radius: $border-radius;
 }
 
-.login-field {
-  margin: 1rem auto;
-}
-
+.login-field,
 .login-button {
-  text-align: right;
+  margin: 0.5rem auto;
 }
 
-.login-box {
-  height: 10rem;
+.button {
+  width: 6rem;
+}
+
+.box {
   width: 50%;
   margin: 0 auto;
 }
 
+.login-box {
+  padding: 0 1rem;
+  height: 10rem;
+}
+
 .signup-box {
+  height: 8rem;
   position: relative;
-  background-color: $primary;
-  min-height: 10rem;
+  background-color: $secondary;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.signup-text {
+  line-height: 2.5;
+  text-align: left;
 }
 </style>

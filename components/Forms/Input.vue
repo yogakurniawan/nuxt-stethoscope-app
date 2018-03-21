@@ -1,5 +1,5 @@
 <template>
-  <input type="text" class="form-control" v-bind="$attrs" v-on="$listeners" />
+  <input type="text" class="form-control" v-on="$listeners" />
 </template>
 
 <script>

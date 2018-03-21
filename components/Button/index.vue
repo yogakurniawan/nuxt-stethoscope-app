@@ -88,6 +88,10 @@ fieldset:disabled a.btn {
   @include button-variant($primary, $primary);
 }
 
+.btn-normal-plain {
+  @include button-variant($white, $white);
+}
+
 // @each $color, $value in $theme-colors {
 //   .btn-outline-#{$color} {
 //     @include button-outline-variant($value);
