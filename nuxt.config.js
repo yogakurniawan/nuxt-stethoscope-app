@@ -14,6 +14,9 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  plugins: [
+    '~plugins/firebase.js'
+  ],
   /*
   ** Customize the progress bar color
   */
@@ -41,8 +44,18 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
+  env: {
+    baseUrl: process.env.BASE_URL || 'https://radiant-fire-8622.firebaseio.com',
+    firebase: {
+      apiKey: "AIzaSyAOrmzsApwFAYSDJ9lIbsUT6ZiOHAZipwM",
+      authDomain: "radiant-fire-8622.firebaseapp.com",
+      projectId: "radiant-fire-8622",
+      storageBucket: "radiant-fire-8622.appspot.com",
+      messagingSenderId: "443846187284"
+    }
+  },
   build: {
-    vendor: ['axios'],
+    vendor: ['axios', 'firebase'],
     analyze: true,
     /*
     ** Run ESLint on save

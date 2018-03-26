@@ -2,7 +2,7 @@
   <nav id="navbar" class="navbar">
     <div class="container">
       <div class="navbar-brand">
-        <a href="/" class="navbar-item">Stethoscope App</a>
+        <nuxt-link to="/" class="navbar-item">Stethoscope App</nuxt-link>
         <div @click="toggle()" id="navbarBurger" :class="toggleClass" class="navbar-burger">
           <span></span>
           <span></span>
@@ -12,14 +12,14 @@
       <div id="navMenu" :class="toggleClass" class="navbar-menu">
         <div class="navbar-start">
           <div class="navbar-item is-hoverable">
-            <a href="/" :class="toggleClass" class="navbar-link">Home</a>
+            <nuxt-link to="/" :class="toggleClass" class="navbar-link">Home</nuxt-link>
           </div>
           <div class="navbar-item is-hoverable">
-            <a href="/" :class="toggleClass" class="navbar-link">Patients</a>
+            <nuxt-link to="/patients" :class="toggleClass" class="navbar-link">Patients</nuxt-link>
           </div>
         </div>
         <div class="navbar-end">
-          <a href="/" class="navbar-item">Icons</a>
+          <nuxt-link to="/" class="navbar-item">Icons</nuxt-link>
         </div>
       </div>
     </div>

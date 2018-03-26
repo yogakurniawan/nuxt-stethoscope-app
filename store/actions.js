@@ -1,4 +1,5 @@
-import { fetchUser, fetchItems, fetchIdsByType } from "../api"
+// import { fetchUser, fetchItems, fetchIdsByType } from "../api"
+import firebase from 'firebase'
 
 export default {
   // ensure data for rendering given list type
@@ -41,5 +42,36 @@ export default {
     return state.users[id]
       ? Promise.resolve(state.users[id])
       : fetchUser(id).then(user => commit("SET_USER", { id, user }))
-  }
+  },
+
+  AUTHENTICATE_USER({ commit, state }, authData) {
+    let authUrl =
+      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
+      process.env.fbAPIKey;
+    if (!authData.isLogin) {
+      authUrl =
+        "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=" +
+        process.env.fbAPIKey;
+    }
+    return this.$axios
+      .$post(authUrl, {
+        email: authData.email,
+        password: authData.password,
+        returnSecureToken: true
+      })
+      .then(result => {
+        vuexContext.commit("setToken", result.idToken);
+        localStorage.setItem("token", result.idToken);
+        localStorage.setItem(
+          "tokenExpiration",
+          new Date().getTime() + Number.parseInt(result.expiresIn) * 1000
+        );
+        Cookie.set("jwt", result.idToken);
+        Cookie.set(
+          "expirationDate",
+          new Date().getTime() + Number.parseInt(result.expiresIn) * 1000
+        );
+      })
+      .catch(e => console.log(e));
+  },
 }
