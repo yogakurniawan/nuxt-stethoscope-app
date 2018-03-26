@@ -44,19 +44,19 @@ export default {
       : fetchUser(id).then(user => commit("SET_USER", { id, user }))
   },
 
-  AUTHENTICATE_USER({ commit, state }, authData) {
+  AUTHENTICATE_USER({ commit, state }, payload) {
     let authUrl =
       "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
       process.env.fbAPIKey;
-    if (!authData.isLogin) {
+    if (!payload.isLogin) {
       authUrl =
         "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=" +
         process.env.fbAPIKey;
     }
     return this.$axios
       .$post(authUrl, {
-        email: authData.email,
-        password: authData.password,
+        email: payload.email,
+        password: payload.password,
         returnSecureToken: true
       })
       .then(result => {

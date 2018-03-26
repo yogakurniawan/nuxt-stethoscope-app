@@ -11,7 +11,7 @@
             <form>
               <div class="row center-xs">
                 <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7 field">
-                  <app-input type="text" name="username" placeholder="Username" />
+                  <app-input type="text" name="email" placeholder="email" />
                 </div>
               </div>
               <div class="row center-xs">
@@ -30,7 +30,9 @@
             <div class="row center-xs">
               <div class="col-xs-9 col-sm-6 col-md-4 col-lg-5 bottom-text">{{ bottomText }}</div>
               <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
-                <app-button :link="true" :to="direction" class="button push-right">{{ navButtonText }}</app-button>
+                <app-button :link="true" :to="direction" class="button push-right">
+                  {{ navButtonText }}
+                </app-button>
               </div>
             </div>
           </div>
