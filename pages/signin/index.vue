@@ -1,5 +1,5 @@
 <template>
-  <auth-form type="signup">
+  <auth-form type="signin">
   </auth-form>
 </template>
 

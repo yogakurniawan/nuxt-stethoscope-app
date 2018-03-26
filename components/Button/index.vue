@@ -1,5 +1,16 @@
 <template>
+  <nuxt-link
+    v-if="link"
+    :to="to"
+    class="btn"
+    :class="[
+      `btn-${type}-${color}`
+    ]"
+    >
+    <slot>Button</slot>
+  </nuxt-link>
   <button
+    v-else
     v-on="$listeners"
     class="btn"
     :class="[
@@ -22,7 +33,15 @@
         type: String,
         default: 'primary'
       },
-    }, 
+      link: {
+        type: Boolean,
+        default: false
+      },
+      to: {
+        type: String,
+        default: '/'
+      },
+    }
   }
 </script>
 
@@ -41,6 +60,7 @@
   line-height: $btn-line-height;
   border-radius: $btn-border-radius;
   transition: $btn-transition;
+  text-decoration: none;
 
   &:hover,
   &:focus {
