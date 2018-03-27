@@ -8,15 +8,15 @@
             <h1>{{ title }}</h1>
           </div>
           <div class="upper-box">
-            <form>
+            <form @submit.prevent="onSubmit">
               <div class="row center-xs">
                 <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7 field">
-                  <app-input type="text" name="email" placeholder="email" />
+                  <app-input v-model="email" type="text" name="email" placeholder="Email" />
                 </div>
               </div>
               <div class="row center-xs">
                 <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7 field">
-                  <app-input type="password" name="password" placeholder="Password" />
+                  <app-input v-model="password" type="password" name="password" placeholder="Password" />
                 </div>
               </div>
               <div class="row center-xs">
@@ -65,10 +65,35 @@ export default {
   },
   data() {
     return {
+      email: '',
+      password: '',
       title: this.type === 'signin' ? 'Sign In' : 'Sign Up',
       navButtonText: this.type === 'signin' ? 'Sign Up' : 'Sign In',
       direction: this.type === 'signin' ? 'signup' : 'signin',
       bottomText: this.type === 'signin' ? 'Already have an Account?' : 'Don\'t have an Account?'
+    }
+  },
+  methods: {
+    async signin() {
+      await this.$store.dispatch("SIGN_IN", {
+        email: this.email,
+        password: this.password
+      })
+      this.$router.push('/patients')
+    },
+    async signup() {
+      await this.$store.dispatch("SIGN_UP", {
+        email: this.email,
+        password: this.password
+      })
+      this.$router.push('/patients')
+    },
+    onSubmit() {
+      if (this.type === 'signin') {
+        this.signin()
+      } else {
+        this.signup()
+      }
     }
   }
 }

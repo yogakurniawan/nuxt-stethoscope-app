@@ -1,77 +1,91 @@
 // import { fetchUser, fetchItems, fetchIdsByType } from "../api"
 import firebase from 'firebase'
+import Cookie from "js-cookie"
 
 export default {
-  // ensure data for rendering given list type
-  FETCH_LIST_DATA: ({ commit, dispatch }, { type }) => {
-    commit("SET_ACTIVE_TYPE", { type })
-    return fetchIdsByType(type)
-      .then(ids => commit("SET_LIST", { type, ids }))
-      .then(() => dispatch("ENSURE_ACTIVE_ITEMS"))
-  },
-
-  // ensure all active items are fetched
-  ENSURE_ACTIVE_ITEMS: ({ dispatch, getters }) => {
-    return dispatch("FETCH_ITEMS", {
-      ids: getters.activeIds
-    })
-  },
-
-  FETCH_ITEMS: ({ commit, state }, { ids }) => {
-    // on the client, the store itself serves as a cache.
-    // only fetch items that we do not already have, or has expired (3 minutes)
-    const now = Date.now()
-    ids = ids.filter(id => {
-      const item = state.items[id]
-      if (!item) {
-        return true
-      }
-      if (now - item.__lastUpdated > 1000 * 60 * 3) {
-        return true
-      }
-      return false
-    })
-    if (ids.length) {
-      return fetchItems(ids).then(items => commit("SET_ITEMS", { items }))
-    } else {
-      return Promise.resolve()
+  async SIGN_UP({ commit }, { email, password }) {
+    try {
+      const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+      commit('SET_USER', user)
+    } catch (error) {
+      commit('SET_ERROR', error)
     }
   },
-
-  FETCH_USER: ({ commit, state }, { id }) => {
-    return state.users[id]
-      ? Promise.resolve(state.users[id])
-      : fetchUser(id).then(user => commit("SET_USER", { id, user }))
-  },
-
-  AUTHENTICATE_USER({ commit, state }, payload) {
-    let authUrl =
-      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
-      process.env.fbAPIKey;
-    if (!payload.isLogin) {
-      authUrl =
-        "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=" +
-        process.env.fbAPIKey;
+  async SIGN_IN({ commit }, { email, password }) {
+    try {
+      const user = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
+      commit('SET_USER', user)
+    } catch (error) {
+      commit('SET_ERROR', error)
     }
-    return this.$axios
-      .$post(authUrl, {
-        email: payload.email,
-        password: payload.password,
-        returnSecureToken: true
-      })
-      .then(result => {
-        vuexContext.commit("setToken", result.idToken);
-        localStorage.setItem("token", result.idToken);
-        localStorage.setItem(
-          "tokenExpiration",
-          new Date().getTime() + Number.parseInt(result.expiresIn) * 1000
-        );
-        Cookie.set("jwt", result.idToken);
-        Cookie.set(
-          "expirationDate",
-          new Date().getTime() + Number.parseInt(result.expiresIn) * 1000
-        );
-      })
-      .catch(e => console.log(e));
-  },
+  }
+  // async AUTHENTICATE_USER({ commit, state }, payload) {
+  //   let authUrl =
+  //     "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=" +
+  //     process.env.fbAPIKey;
+  //   if (!payload.isLogin) {
+  //     authUrl =
+  //       "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=" +
+  //       process.env.fbAPIKey;
+  //   }
+  //   await fire
+  //   return this.$axios
+  //     .$post(authUrl, {
+  //       email: payload.email,
+  //       password: payload.password,
+  //       returnSecureToken: true
+  //     })
+  //     .then(result => {
+  //       vuexContext.commit("setToken", result.idToken);
+  //       localStorage.setItem("token", result.idToken);
+  //       localStorage.setItem(
+  //         "tokenExpiration",
+  //         new Date().getTime() + Number.parseInt(result.expiresIn) * 1000
+  //       );
+  //       Cookie.set("jwt", result.idToken);
+  //       Cookie.set(
+  //         "expirationDate",
+  //         new Date().getTime() + Number.parseInt(result.expiresIn) * 1000
+  //       );
+  //     })
+  //     .catch(e => console.log(e));
+  // },
+  // initAuth(vuexContext, req) {
+  //   let token;
+  //   let expirationDate;
+  //   if (req) {
+  //     if (!req.headers.cookie) {
+  //       return;
+  //     }
+  //     const jwtCookie = req.headers.cookie
+  //       .split(";")
+  //       .find(c => c.trim().startsWith("jwt="));
+  //     if (!jwtCookie) {
+  //       return;
+  //     }
+  //     token = jwtCookie.split("=")[1];
+  //     expirationDate = req.headers.cookie
+  //       .split(";")
+  //       .find(c => c.trim().startsWith("expirationDate="))
+  //       .split("=")[1];
+  //   } else {
+  //     token = localStorage.getItem("token");
+  //     expirationDate = localStorage.getItem("tokenExpiration");
+  //   }
+  //   if (new Date().getTime() > +expirationDate || !token) {
+  //     console.log("No token or invalid token");
+  //     vuexContext.dispatch("logout");
+  //     return;
+  //   }
+  //   vuexContext.commit("setToken", token);
+  // },
+  // logout(vuexContext) {
+  //   vuexContext.commit("clearToken");
+  //   Cookie.remove("jwt");
+  //   Cookie.remove("expirationDate");
+  //   if (process.client) {
+  //     localStorage.removeItem("token");
+  //     localStorage.removeItem("tokenExpiration");
+  //   }
+  // }
 }

@@ -8,7 +8,8 @@ export default () => {
   return new Vuex.Store({
     state: {
       token: null,
-      user: null
+      user: null,
+      error: null
     },
     actions,
     mutations,

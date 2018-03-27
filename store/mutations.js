@@ -1,23 +1,14 @@
-import Vue from "vue"
-
 export default {
-  SET_ACTIVE_TYPE: (state, { type }) => {
-    state.activeType = type
+  SET_TOKEN(state, token) {
+    state.token = token;
   },
-
-  SET_LIST: (state, { type, ids }) => {
-    state.lists[type] = ids
+  SET_USER(state, user) {
+    state.user = user;
   },
-
-  SET_ITEMS: (state, { items }) => {
-    items.forEach(item => {
-      if (item) {
-        Vue.set(state.items, item.id, item)
-      }
-    })
+  SET_ERROR(state, error) {
+    state.error = error;
   },
-
-  SET_USER: (state, { id, user }) => {
-    Vue.set(state.users, id, user || false) /* false means user not found */
+  CLEAR_TOKEN(state) {
+    state.token = null;
   }
 }

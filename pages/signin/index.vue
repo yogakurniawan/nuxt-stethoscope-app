@@ -7,7 +7,8 @@
 import AuthForm from '~/components/Auth/Form'
 
 export default {
-  layout: "auth",
+  layout: 'auth',
+  middleware: 'log',
   components: {
     AuthForm
   }
