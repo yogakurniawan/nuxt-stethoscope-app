@@ -1,14 +1,14 @@
 export default {
-  SET_TOKEN(state, token) {
-    state.token = token;
+  SET_USER(state, payload) {
+    state.auth.user = payload
   },
-  SET_USER(state, user) {
-    state.user = user;
+  SET_ERROR(state, payload) {
+    state.auth.error = payload
   },
-  SET_ERROR(state, error) {
-    state.error = error;
+  SET_LOADING(state, payload) {
+    state.auth.loading = payload
   },
-  CLEAR_TOKEN(state) {
-    state.token = null;
+  CLEAR_ERROR(state) {
+    state.auth.error = null
   }
 }

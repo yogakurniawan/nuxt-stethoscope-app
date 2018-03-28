@@ -1,5 +1,5 @@
 export default {
   isAuthenticated(state) {
-    return state.token != null;
+    return state.auth.user != null
   }
 }

@@ -7,9 +7,11 @@ import getters from "./getters"
 export default () => {
   return new Vuex.Store({
     state: {
-      token: null,
-      user: null,
-      error: null
+      auth: {
+        user: null,
+        error: null,
+        loading: false
+      }
     },
     actions,
     mutations,

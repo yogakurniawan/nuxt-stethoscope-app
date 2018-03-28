@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-fluid">
     <logo-bar></logo-bar>
     <div class="row center-xs">
       <div class="col-xs-12 col-sm-8 col-md-7 col-lg-5">

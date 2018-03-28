@@ -1,21 +1,32 @@
 // import { fetchUser, fetchItems, fetchIdsByType } from "../api"
 import firebase from 'firebase'
-import Cookie from "js-cookie"
+import Cookie from 'js-cookie'
+import * as Local from '~/utils/localStorage'
 
 export default {
   async SIGN_UP({ commit }, { email, password }) {
     try {
+      commit('SET_LOADING', true)
       const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+      commit('SET_LOADING', false)
       commit('SET_USER', user)
+      Local.setItem("user", user)
+      Cookie.set("user", user)
     } catch (error) {
+      commit('SET_LOADING', false)
       commit('SET_ERROR', error)
     }
   },
   async SIGN_IN({ commit }, { email, password }) {
     try {
+      commit('SET_LOADING', true)
       const user = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
+      commit('SET_LOADING', false)
       commit('SET_USER', user)
+      Local.setItem("user", user)
+      Cookie.set("user", user)
     } catch (error) {
+      commit('SET_LOADING', false)
       commit('SET_ERROR', error)
     }
   }
