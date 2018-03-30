@@ -13,6 +13,9 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.5",
+    "@fortawesome/fontawesome-free-solid": "^5.0.9",
+    "@fortawesome/vue-fontawesome": "^0.0.22",
     "@nuxtjs/axios": "^5.0.0",
     "axios": "^0.18.0",
     "firebase": "^4.12.0",
@@ -21,7 +24,7 @@
     "normalize.css": "^7.0.0",
     "nuxt": "^1.4.0",
     "sanitize.css": "^5.0.0",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

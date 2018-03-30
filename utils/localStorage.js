@@ -1,4 +1,4 @@
-export const loadItem = (key) => {
+export const getItem = (key) => {
   try {
     const serializedState = localStorage.getItem(key);
     if (serializedState === null) {

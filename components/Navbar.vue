@@ -19,7 +19,7 @@
           </div>
         </div>
         <div class="navbar-end">
-          <nuxt-link to="/" class="navbar-item">Icons</nuxt-link>
+          <app-button @click="logout">Logout</app-button>
         </div>
       </div>
     </div>
@@ -27,7 +27,12 @@
 </template>
 
 <script>
+import AppButton from '~/components/Button'
+
 export default {
+  components: {
+    AppButton
+  },
   data() {
     return {
       isActive: false
@@ -36,6 +41,10 @@ export default {
   methods: {
     toggle() {
       this.isActive = !this.isActive
+    },
+    logout() {
+      this.$store.dispatch('SIGN_OUT')
+      this.$router.push('/signin')
     }
   },
   computed: {

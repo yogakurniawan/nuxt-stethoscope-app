@@ -1,32 +1,46 @@
 <template>
   <section class="container-main">
     <div>
-      <app-logo/>
-      <h1 class="title">
-        nuxt-app
-      </h1>
-      <app-button @click="sayHello">Hello</app-button>
+      <app-button @click="modifyLion">Modify Lion</app-button>
+      <app-button @click="modifyTiger">Modify Tiger</app-button>
+      {{ zoo() }}
+      {{ lion }}
     </div>
   </section>
 </template>
 
 <script>
-import axios from 'axios'
-import AppLogo from '~/components/AppLogo.vue'
-import ButtonTest from '~/components/ButtonTest.vue'
 import AppButton from '~/components/Button'
 
 export default {
-  components: {
-    AppLogo,
-    AppButton,
-    ButtonTest
-  },
-  methods: {
-    sayHello() {
-      console.log('hello from parent')
+  data() {
+    return {
+      tiger: 'tiger',
+      lion: 'lion'
     }
   },
+  components: {
+    AppButton
+  },
+  computed: {
+    cTiger() {
+      console.log('cTiger called')
+      return 'hello ' + this.tiger
+    }
+  },
+  methods: {
+    modifyTiger() {
+      console.log('you')
+      this.tiger = 'I am tiger'
+    },
+    zoo() {
+      console.log('badass')
+    },
+    modifyLion() {
+      this.lion = this.lion + 'I am Lion'
+      console.log('update message will trigger all method to call in template')
+    }
+  }
 }
 </script>
 

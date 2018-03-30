@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <logo-bar></logo-bar>
     <div class="row center-xs">
-      <div class="col-xs-12 col-sm-8 col-md-7 col-lg-5">
+      <div class="col-xs-12 col-sm-8 col-md-7 col-lg-6">
         <div class="auth-container">
           <div>
             <h1>{{ title }}</h1>
@@ -21,7 +21,10 @@
               </div>
               <div class="row center-xs">
                 <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7">
-                  <app-button class="upper-button button push-right">{{ title }}</app-button>
+                  <app-button class="upper-button button push-right">
+                    <span v-if="!loggingIn">{{ title }}</span>
+                    <spinner size="1.4rem" :loading="loggingIn"></spinner>
+                  </app-button>
                 </div>
               </div>
             </form>
@@ -46,6 +49,7 @@
 <script>
 import AppButton from '~/components/Button'
 import AppFooter from '~/components/Footer'
+import Spinner from '~/components/Spinner'
 import AppInput from '~/components/Forms/Input'
 import LogoBar from './LogoBar'
 
@@ -59,6 +63,7 @@ export default {
   },
   components: {
     LogoBar,
+    Spinner,
     AppButton,
     AppInput,
     AppFooter
@@ -71,6 +76,11 @@ export default {
       navButtonText: this.type === 'signin' ? 'Sign Up' : 'Sign In',
       direction: this.type === 'signin' ? 'signup' : 'signin',
       bottomText: this.type === 'signin' ? 'Already have an Account?' : 'Don\'t have an Account?'
+    }
+  },
+  computed: {
+    loggingIn() {
+      return this.$store.getters.isLoggingIn
     }
   },
   methods: {

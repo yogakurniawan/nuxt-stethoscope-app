@@ -7,8 +7,5 @@ export default {
   },
   SET_LOADING(state, payload) {
     state.auth.loading = payload
-  },
-  CLEAR_ERROR(state) {
-    state.auth.error = null
   }
 }
