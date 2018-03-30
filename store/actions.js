@@ -3,31 +3,41 @@ import Cookie from 'js-cookie'
 import * as Local from '~/utils/localStorage'
 
 export default {
-  async SIGN_UP({ commit }, { email, password }) {
-    try {
-      commit('SET_LOADING', true)
-      const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
-      commit('SET_LOADING', false)
-      commit('SET_USER', user)
-      Local.setItem('user', user)
-      Cookie.set('user', user)
-    } catch (error) {
-      commit('SET_LOADING', false)
-      commit('SET_ERROR', error)
-    }
+  SIGN_UP({ commit }, { email, password }) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        commit('SET_LOADING', true)
+        const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+        commit('SET_LOADING', false)
+        commit('SET_USER', user)
+        commit('SET_ERROR', null)      
+        Local.setItem('user', user)
+        Cookie.set('user', user)
+        resolve()
+      } catch (error) {
+        commit('SET_LOADING', false)
+        commit('SET_ERROR', error)
+        reject()
+      }
+    })
   },
-  async SIGN_IN({ commit }, { email, password }) {
-    try {
-      commit('SET_LOADING', true)
-      const user = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
-      commit('SET_LOADING', false)
-      commit('SET_USER', user)
-      Local.setItem('user', user)
-      Cookie.set('user', user)
-    } catch (error) {
-      commit('SET_LOADING', false)
-      commit('SET_ERROR', error)
-    }
+  SIGN_IN({ commit }, { email, password }) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        commit('SET_LOADING', true)
+        const user = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
+        commit('SET_LOADING', false)
+        commit('SET_USER', user)
+        commit('SET_ERROR', null)      
+        Local.setItem('user', user)
+        Cookie.set('user', user)
+        resolve()
+      } catch (error) {
+        commit('SET_LOADING', false)
+        commit('SET_ERROR', error)
+        reject()
+      }
+    })
   },
   INIT_AUTH({ commit }, req) {
     let user = null

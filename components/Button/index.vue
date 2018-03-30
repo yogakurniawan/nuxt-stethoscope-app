@@ -61,7 +61,7 @@
   border-radius: $btn-border-radius;
   transition: $btn-transition;
   text-decoration: none;
-  min-height: 2.5rem;
+  height: 2.5rem;
 
   &:hover,
   &:focus {

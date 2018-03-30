@@ -2,6 +2,7 @@
   <input 
     @input="$emit('input', $event.target.value)"
     class="form-control"
+    :class="{ 'invalid' : invalid }"
     :value="value"
     v-bind="$attrs">
 </template>
@@ -13,6 +14,10 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+    invalid: {
+      type: Boolean,
+      default: false
     }
   }
 }
@@ -37,7 +42,7 @@ export default {
     background-color: transparent;
     border: 0;
   } // Customize the `:focus` state to imitate native WebKit styles.
-  @include form-control-focus(); // Placeholder
+  @include form-control-focus($gray-700, $input-focus-border-color, ($input-box-shadow, $input-btn-focus-box-shadow));
   &::placeholder {
     color: $gray-600; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
     opacity: 1;
@@ -50,6 +55,10 @@ export default {
   &[readonly] {
     background-color: $gray-200; // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
     opacity: 1;
+  }
+  &.invalid {
+    border-color: $invalid;
+    @include form-control-focus($gray-700, $invalid, 0 0 0 0.2rem rgba(220,53,69,.25));
   }
 }
 </style>

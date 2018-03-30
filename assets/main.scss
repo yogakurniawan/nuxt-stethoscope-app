@@ -11,10 +11,19 @@ html {
 
 .push-left {
   float: left;
+  text-align: left;
 }
 
 .push-right {
   float: right;
+  text-align: right;
+}
+
+.invalid-feedback {
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
 }
 
 @font-face {

@@ -18,6 +18,9 @@ module.exports = {
     {
       src: '~plugins/firebase.js',
       ssr: false
+    },
+    {
+      src: '~plugins/common.js'
     }
   ],
   /*

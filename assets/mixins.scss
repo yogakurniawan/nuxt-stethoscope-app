@@ -35,12 +35,12 @@
   }
 }
 
-@mixin form-control-focus() {
+@mixin form-control-focus($color, $border-color, $box-shadow) {
   &:focus {
-    color: $gray-700;
+    color: $color;
     background-color: $white;
-    border-color: $input-focus-border-color;
+    border-color: $border-color;
     outline: 0;
-    box-shadow: $input-box-shadow, $input-btn-focus-box-shadow;
+    box-shadow: $box-shadow;
   }
 }

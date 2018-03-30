@@ -3,6 +3,9 @@ export default {
     return state.auth.user != null
   },
   isLoggingIn(state) {
-    return state.auth.loading;
+    return state.auth.loading
+  },
+  isAuthError(state) {
+    return state.auth.error != null
   }
 }

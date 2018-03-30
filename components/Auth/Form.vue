@@ -11,12 +11,14 @@
             <form @submit.prevent="onSubmit">
               <div class="row center-xs">
                 <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7 field">
-                  <app-input v-model="email" type="text" name="email" placeholder="Email" />
+                  <app-input :invalid="errors.has('email')" v-validate="'required|email'" v-model="email" type="text" name="email" placeholder="Email" />
+                  <span v-show="errors.has('email')" class="push-left invalid-feedback">{{ errors.first('email') }}</span>
                 </div>
               </div>
               <div class="row center-xs">
                 <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7 field">
-                  <app-input v-model="password" type="password" name="password" placeholder="Password" />
+                  <app-input :invalid="errors.has('password')" v-validate="'required|strong_password'" v-model="password" type="password" name="password" placeholder="Password" />
+                  <span v-show="errors.has('password')" class="push-left invalid-feedback">{{ errors.first('password') }}</span>
                 </div>
               </div>
               <div class="row center-xs">
@@ -47,6 +49,7 @@
 </template>
 
 <script>
+import { Validator } from 'vee-validate';
 import AppButton from '~/components/Button'
 import AppFooter from '~/components/Footer'
 import Spinner from '~/components/Spinner'
@@ -83,26 +86,41 @@ export default {
       return this.$store.getters.isLoggingIn
     }
   },
+  created() {
+    Validator.extend('strong_password', {
+      getMessage: field => `The ${field} must be 6 characters long or more.`,
+      validate: value => {
+        console.log(value)
+        return value && value.length >= 6
+      }
+    })
+  },
   methods: {
-    async signin() {
-      await this.$store.dispatch("SIGN_IN", {
+    signin() {
+      return this.$store.dispatch("SIGN_IN", {
         email: this.email,
         password: this.password
       })
-      this.$router.push('/patients')
     },
-    async signup() {
-      await this.$store.dispatch("SIGN_UP", {
+    signup() {
+      return this.$store.dispatch("SIGN_UP", {
         email: this.email,
         password: this.password
       })
-      this.$router.push('/patients')
     },
-    onSubmit() {
-      if (this.type === 'signin') {
-        this.signin()
-      } else {
-        this.signup()
+    async onSubmit() {
+      const result = await this.$validator.validateAll()
+      if (result) {
+        if (this.type === 'signin') {
+          await this.signin()
+        } else {
+          await this.signup()
+        }
+        const error = this.$store.getters.isAuthError
+        const authenticated = this.$store.getters.isAuthenticated
+        if (!error && authenticated) {
+          this.$router.push('/patients')
+        }
       }
     }
   }
@@ -132,7 +150,7 @@ export default {
 
 .upper-box {
   padding: 0 1rem;
-  height: 10rem;
+  min-height: 10rem;
 }
 
 .bottom-box {
