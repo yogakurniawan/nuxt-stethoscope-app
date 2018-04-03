@@ -27,7 +27,7 @@ export default {
 .form-control {
   display: block;
   width: 100%;
-  padding: $input-padding-y $input-padding-x;
+  padding: $padding-y $padding-x;
   font-family: inherit;
   font-size: $font-size-base;
   line-height: $input-line-height;

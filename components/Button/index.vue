@@ -55,7 +55,7 @@
   vertical-align: middle;
   user-select: none;
   border: $btn-border-width solid transparent;
-  padding: $btn-padding-y $btn-padding-x;
+  padding: $padding-y $padding-x;
   font-size: $font-size-base;
   line-height: $btn-line-height;
   border-radius: $btn-border-radius;
