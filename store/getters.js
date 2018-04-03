@@ -7,5 +7,10 @@ export default {
   },
   isAuthError(state) {
     return state.auth.error != null
+  },
+  token(state) {
+    const userData = state.auth.user
+    const stsTokenManager = userData && userData.stsTokenManager
+    return userData && stsTokenManager && stsTokenManager.accessToken
   }
 }

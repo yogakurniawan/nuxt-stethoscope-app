@@ -8,9 +8,11 @@ export default {
       try {
         commit('SET_LOADING', true)
         const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
+        const currentUser = firebase.auth().currentUser
+        await currentUser.sendEmailVerification()
         commit('SET_LOADING', false)
         commit('SET_USER', user)
-        commit('SET_ERROR', null)      
+        commit('SET_ERROR', null)
         Local.setItem('user', user)
         Cookie.set('user', user)
         resolve()
@@ -25,12 +27,12 @@ export default {
     return new Promise(async (resolve, reject) => {
       try {
         commit('SET_LOADING', true)
-        const user = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
+        const data = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
         commit('SET_LOADING', false)
-        commit('SET_USER', user)
+        commit('SET_USER', data.user)
         commit('SET_ERROR', null)      
-        Local.setItem('user', user)
-        Cookie.set('user', user)
+        Local.setItem('user', data.user)
+        Cookie.set('user', data.user)
         resolve()
       } catch (error) {
         commit('SET_LOADING', false)

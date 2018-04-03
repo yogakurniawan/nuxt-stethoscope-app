@@ -78,7 +78,7 @@ export default {
       title: this.type === 'signin' ? 'Sign In' : 'Sign Up',
       navButtonText: this.type === 'signin' ? 'Sign Up' : 'Sign In',
       direction: this.type === 'signin' ? 'signup' : 'signin',
-      bottomText: this.type === 'signin' ? 'Already have an Account?' : 'Don\'t have an Account?'
+      bottomText: this.type === 'signup' ? 'Already have an Account?' : 'Don\'t have an Account?'
     }
   },
   computed: {
