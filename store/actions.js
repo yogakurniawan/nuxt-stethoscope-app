@@ -59,8 +59,8 @@ export default {
     }
     commit('SET_USER', user)
   },
-  SIGN_OUT({ commit }) {
-    firebase.auth().signOut()
+  async SIGN_OUT({ commit }) {
+    await firebase.auth().signOut()
     commit('SET_USER', null)
     Cookie.remove('user')
     if (process.client) {
