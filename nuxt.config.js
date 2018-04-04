@@ -21,6 +21,9 @@ module.exports = {
     },
     {
       src: '~plugins/common.js'
+    },
+    {
+      src: '~plugins/axios.js'
     }
   ],
   /*
@@ -51,7 +54,7 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
   },
   env: {
-    baseUrl: process.env.BASE_URL || 'https://radiant-fire-8622.firebaseio.com',
+    baseUrl: process.env.BASE_URL ||  'https://radiant-fire-8622.firebaseio.com',
     firebase: {
       apiKey: "AIzaSyAOrmzsApwFAYSDJ9lIbsUT6ZiOHAZipwM",
       authDomain: "radiant-fire-8622.firebaseapp.com",
@@ -66,7 +69,7 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-    extend (config, { isDev, isClient }) {
+    extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',

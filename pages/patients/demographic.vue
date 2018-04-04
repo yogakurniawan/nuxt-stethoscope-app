@@ -28,7 +28,6 @@ import AppInput from '~/components/Forms/Input'
 import AppButton from '~/components/Button'
 
 export default {
-  middleware: 'auth',
   components: {
     AppInput,
     AppButton

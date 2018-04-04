@@ -81,9 +81,9 @@ export default {
       navButtonText: this.type === "signin" ? "Sign Up" : "Sign In",
       direction: this.type === "signin" ? "signup" : "signin",
       bottomText:
-        this.type === "signup"
-          ? "Already have an Account?"
-          : "Don't have an Account?"
+      this.type === "signup"
+        ? "Already have an Account?"
+        : "Don't have an Account?"
     };
   },
   computed: {
