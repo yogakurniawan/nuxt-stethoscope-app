@@ -1,26 +1,29 @@
 import * as types from './mutation-types'
 
-const state = {
-	info: {},
-}
-
 export default {
   SET_USER(state, payload) {
     state.auth.user = payload
   },
-  SET_ERROR(state, payload) {
-    state.auth.error = payload
-  },
-  SET_LOADING(state, payload) {
-    state.auth.loading = payload
-  },
-  [types.GET_INFO_ASYNC.SUCCESS] (state, info) {
-    state[types.GET_INFO_ASYNC.loadingKey] = false
-    state[types.GET_INFO_ASYNC.stateKey] = info
+  [types.SIGNIN.SUCCESS] (state, payload) {
+    state.auth[types.SIGNIN.loadingKey] = false
+    state.auth.user = payload
+    state.auth[types.SIGNIN.errorKey] = null
 	},
-
-	[types.GET_INFO_ASYNC.PENDING] (state) {
-		console.log(types.GET_INFO_ASYNC.loadingKey)
-		Vue.set(state, types.GET_INFO_ASYNC.loadingKey, true)
-	}
+	[types.SIGNIN.PENDING] (state) {
+		state.auth[types.SIGNIN.loadingKey] = true
+	},
+	[types.SIGNIN.FAILURE] (state, error) {
+		state.auth[types.SIGNIN.errorKey] = error
+	},
+  [types.SIGNUP.SUCCESS] (state, payload) {
+    state.auth[types.SIGNUP.loadingKey] = false
+    state.auth.user = payload
+    state.auth[types.SIGNUP.errorKey] = null
+	},
+	[types.SIGNUP.PENDING] (state) {
+		state.auth[types.SIGNUP.loadingKey] = true
+	},
+	[types.SIGNUP.FAILURE] (state, error) {
+		state.auth[types.SIGNUP.errorKey] = error
+	},
 }

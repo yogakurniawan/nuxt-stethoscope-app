@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import AppInput from '~/components/Forms/Input'
-import AppButton from '~/components/Button'
+import AppInput from "~/components/Forms/Input";
+import AppButton from "~/components/Button";
 
 export default {
   components: {
@@ -34,20 +34,22 @@ export default {
   },
   data() {
     return {
-      practiceName: '',
-      fullName: ''
-    }
+      practiceName: "",
+      fullName: ""
+    };
   },
   methods: {
     async addPatient() {
       const patient = {
         fullName: this.fullName,
         practiceName: this.practiceName
-      }
-      const url = `${process.env.baseUrl}/patients.json?auth=${this.$store.getters.token}`
-      const data = await this.$axios.$post(url, patient)
-      console.log(data)
+      };
+      const url = `${process.env.baseUrl}/patients.json?auth=${
+        this.$store.getters.token
+      }`;
+      const data = await this.$axios.$post(url, patient);
+      console.log(data);
     }
-  },
-}
+  }
+};
 </script>

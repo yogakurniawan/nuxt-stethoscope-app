@@ -1,30 +1,22 @@
 import firebase from 'firebase'
 import Cookie from 'js-cookie'
 import * as Local from '~/utils/localStorage'
-
-const mutationTypes = {
-	SUCCESS: 'GET_INFO_SUCCESS',
-	FAILURE: 'GET_INFO_FAILURE',
-	PENDING: 'GET_INFO_PENDING'
-}
+import * as mutationTypes from './mutation-types'
 
 export default {
   SIGN_UP({ commit }, { email, password }) {
     return new Promise(async (resolve, reject) => {
       try {
-        commit('SET_LOADING', true)
+        commit(mutationTypes.SIGNUP.PENDING)
         const user = await firebase.auth().createUserWithEmailAndPassword(email, password)
         const currentUser = firebase.auth().currentUser
         await currentUser.sendEmailVerification()
-        commit('SET_LOADING', false)
-        commit('SET_USER', user)
-        commit('SET_ERROR', null)
+        commit(mutationTypes.SIGNUP.SUCCESS, user)
         Local.setItem('user', user)
         Cookie.set('user', user)
         resolve()
       } catch (error) {
-        commit('SET_LOADING', false)
-        commit('SET_ERROR', error)
+        commit(mutationTypes.SIGNUP.FAILURE, error)
         reject()
       }
     })
@@ -32,17 +24,15 @@ export default {
   SIGN_IN({ commit }, { email, password }) {
     return new Promise(async (resolve, reject) => {
       try {
-        commit('SET_LOADING', true)
+        commit(mutationTypes.SIGNIN.PENDING)
         const data = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
-        commit('SET_LOADING', false)
-        commit('SET_USER', data.user)
-        commit('SET_ERROR', null)      
+        commit(mutationTypes.SIGNIN.SUCCESS, data.user)
         Local.setItem('user', data.user)
         Cookie.set('user', data.user)
         resolve()
       } catch (error) {
-        commit('SET_LOADING', false)
-        commit('SET_ERROR', error)
+        console.log(error)
+        commit(mutationTypes.SIGNIN.FAILURE, error)
         reject()
       }
     })

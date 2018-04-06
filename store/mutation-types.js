@@ -1,11 +1,13 @@
-import _ from 'lodash.camelcase'
+import camelCase from 'lodash.camelcase'
 
 const createAsyncMutation = (type) => ({
 	SUCCESS: `${type}_SUCCESS`,
 	FAILURE: `${type}_FAILURE`,
 	PENDING: `${type}_PENDING`,
-	loadingKey: _.camelCase(`${type}_PENDING`),
-	stateKey: _.camelCase(`${type}_DATA`)
+	loadingKey: camelCase(`${type}_PENDING`),
+	stateKey: camelCase(`${type}_DATA`),
+	errorKey: camelCase(`${type}_ERROR`)
 })
 
-export const GET_INFO_ASYNC = createAsyncMutation('GET_INFO')
+export const SIGNIN = createAsyncMutation('SIGNIN')
+export const SIGNUP = createAsyncMutation('SIGNUP')
