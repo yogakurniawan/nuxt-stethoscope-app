@@ -2,6 +2,12 @@ import firebase from 'firebase'
 import Cookie from 'js-cookie'
 import * as Local from '~/utils/localStorage'
 
+const mutationTypes = {
+	SUCCESS: 'GET_INFO_SUCCESS',
+	FAILURE: 'GET_INFO_FAILURE',
+	PENDING: 'GET_INFO_PENDING'
+}
+
 export default {
   SIGN_UP({ commit }, { email, password }) {
     return new Promise(async (resolve, reject) => {
@@ -59,7 +65,8 @@ export default {
     }
     commit('SET_USER', user)
   },
-  async SIGN_OUT({ commit }) {
+  async SIGN_OUT({ commit, ...rest }) {
+    console.log(this)
     await firebase.auth().signOut()
     commit('SET_USER', null)
     Cookie.remove('user')
