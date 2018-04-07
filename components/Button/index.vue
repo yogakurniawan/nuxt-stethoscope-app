@@ -54,11 +54,11 @@
   white-space: nowrap;
   vertical-align: middle;
   user-select: none;
-  border: $btn-border-width solid transparent;
+  border: $border-width solid transparent;
   padding: $padding-y $padding-x;
   font-size: $font-size-base;
-  line-height: $btn-line-height;
-  border-radius: $btn-border-radius;
+  line-height: $line-height-base;
+  border-radius: $border-radius;
   transition: $btn-transition;
   text-decoration: none;
   height: 2.5rem;
