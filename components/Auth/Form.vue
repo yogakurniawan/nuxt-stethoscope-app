@@ -25,8 +25,8 @@
                 <div class="row center-xs">
                   <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7">
                     <app-button class="upper-button button push-right">
-                      <span v-if="!loggingIn">{{ title }}</span>
-                      <spinner size="1.4rem" :loading="loggingIn"></spinner>
+                      <span v-if="!isLoading">{{ title }}</span>
+                      <spinner size="1.4rem" :loading="isLoading"></spinner>
                     </app-button>
                   </div>
                 </div>
@@ -51,19 +51,19 @@
 </template>
 
 <script>
-import { Validator } from "vee-validate";
-import AppButton from "~/components/Button";
-import AppFooter from "~/components/Footer";
-import Spinner from "~/components/Spinner";
-import AppInput from "~/components/Forms/Input";
-import LogoBar from "./LogoBar";
+import { Validator } from 'vee-validate';
+import AppButton from '~/components/Button';
+import AppFooter from '~/components/Footer';
+import Spinner from '~/components/Spinner';
+import AppInput from '~/components/Forms/Input';
+import LogoBar from './LogoBar';
 
 export default {
   props: {
-    name: "AuthForm",
+    name: 'AuthForm',
     type: {
       type: String,
-      default: "signin"
+      default: 'signin'
     }
   },
   components: {
@@ -75,24 +75,28 @@ export default {
   },
   data() {
     return {
-      email: "",
-      password: "",
-      title: this.type === "signin" ? "Sign In" : "Sign Up",
-      navButtonText: this.type === "signin" ? "Sign Up" : "Sign In",
-      direction: this.type === "signin" ? "signup" : "signin",
+      email: '',
+      password: '',
+      title: this.type === 'signin' ? 'Sign In' : 'Sign Up',
+      navButtonText: this.type === 'signin' ? 'Sign Up' : 'Sign In',
+      direction: this.type === 'signin' ? 'signup' : 'signin',
       bottomText:
-      this.type === "signup"
-        ? "Already have an Account?"
-        : "Don't have an Account?"
+      this.type === 'signup'
+        ? 'Already have an Account?'
+        : 'Don\'t have an Account?'
     };
   },
   computed: {
-    loggingIn() {
-      return this.$store.getters.isLoggingIn;
+    isLoading() {
+      console.log('isLoading')
+      if (this.type === 'signin') {
+        return this.$store.getters.isSigningIn
+      }
+      return this.$store.getters.isSigningUp;
     }
   },
   created() {
-    Validator.extend("strong_password", {
+    Validator.extend('strong_password', {
       getMessage: field => `The ${field} must be 6 characters long or more.`,
       validate: value => {
         console.log(value);
@@ -102,13 +106,13 @@ export default {
   },
   methods: {
     signin() {
-      return this.$store.dispatch("SIGN_IN", {
+      return this.$store.dispatch('SIGN_IN', {
         email: this.email,
         password: this.password
       });
     },
     signup() {
-      return this.$store.dispatch("SIGN_UP", {
+      return this.$store.dispatch('SIGN_UP', {
         email: this.email,
         password: this.password
       });
@@ -116,7 +120,7 @@ export default {
     async onSubmit() {
       const result = await this.$validator.validateAll();
       if (result) {
-        if (this.type === "signin") {
+        if (this.type === 'signin') {
           await this.signin();
         } else {
           await this.signup();
@@ -124,7 +128,7 @@ export default {
         const error = this.$store.getters.isAuthError;
         const authenticated = this.$store.getters.isAuthenticated;
         if (!error && authenticated) {
-          this.$router.push("/patients");
+          this.$router.push('/patients');
         }
       }
     }
@@ -132,7 +136,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .auth-container {
   margin: 2rem 1rem;
   border: 2px solid $secondary;
