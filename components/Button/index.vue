@@ -49,7 +49,7 @@
 .btn {
   font-family: inherit;
   display: inline-block;
-  font-weight: $btn-font-weight;
+  font-weight: $font-weight-normal;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
