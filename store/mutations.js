@@ -4,6 +4,9 @@ export default {
   SET_USER(state, payload) {
     state.auth.user = payload
   },
+  SET_TOKEN(state, payload) {
+    state.auth.token = payload
+  },
   [types.SIGNIN.SUCCESS] (state, payload) {
     state.auth[types.SIGNIN.loadingKey] = false
     state.auth.user = payload

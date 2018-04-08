@@ -9,6 +9,7 @@ export default () => {
   return new Vuex.Store({
     state: {
       auth: {
+        token: null,
         user: null,
         [types.SIGNIN.errorKey]: null,
         [types.SIGNIN.loadingKey]: false,

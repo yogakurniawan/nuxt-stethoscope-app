@@ -16,8 +16,6 @@ export default {
     return signinError != null || signupError != null
   },
   token(state) {
-    const userData = state.auth.user
-    const stsTokenManager = userData && userData.stsTokenManager
-    return userData && stsTokenManager && stsTokenManager.accessToken
+    return state.auth.token
   }
 }

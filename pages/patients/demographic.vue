@@ -28,6 +28,7 @@ import AppInput from "~/components/Forms/Input";
 import AppButton from "~/components/Button";
 
 export default {
+  middleware: "auth",
   components: {
     AppInput,
     AppButton
@@ -44,9 +45,7 @@ export default {
         fullName: this.fullName,
         practiceName: this.practiceName
       };
-      const url = `${process.env.baseUrl}/patients.json?auth=${
-        this.$store.getters.token
-      }`;
+      const url = `${process.env.baseUrl}/patients.json`;
       const data = await this.$axios.$post(url, patient);
       console.log(data);
     }
