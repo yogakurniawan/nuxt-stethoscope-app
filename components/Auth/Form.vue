@@ -28,6 +28,7 @@
                       <span v-if="!isLoading">{{ title }}</span>
                       <spinner size="1.4rem" :loading="isLoading"></spinner>
                     </app-button>
+                    <app-button @click="onShow">show modal</app-button>
                   </div>
                 </div>
               </form>
@@ -46,27 +47,34 @@
         </div>
       </div>
       <app-footer></app-footer>
+      <modal measure="em" :show="show" :animation="animation" :width="28.5" :height="17" :duration="301" className="my-dialog" @hide="show = false">
+        <div class="header">Vodal</div>
+        <div class="body">A vue modal with animations.</div>
+        <button class="vodal-confirm-btn" @click="show = false">ok</button>
+      </modal>
     </div>
   </div>
 </template>
 
 <script>
-import { Validator } from 'vee-validate';
-import AppButton from '~/components/Button';
-import AppFooter from '~/components/Footer';
-import Spinner from '~/components/Spinner';
-import AppInput from '~/components/Forms/Input';
-import LogoBar from './LogoBar';
+import { Validator } from "vee-validate";
+import Modal from "~/components/Modal";
+import AppButton from "~/components/Button";
+import AppFooter from "~/components/Footer";
+import Spinner from "~/components/Spinner";
+import AppInput from "~/components/Forms/Input";
+import LogoBar from "./LogoBar";
 
 export default {
   props: {
-    name: 'AuthForm',
+    name: "AuthForm",
     type: {
       type: String,
-      default: 'signin'
+      default: "signin"
     }
   },
   components: {
+    Modal,
     LogoBar,
     Spinner,
     AppButton,
@@ -75,28 +83,32 @@ export default {
   },
   data() {
     return {
-      email: '',
-      password: '',
-      title: this.type === 'signin' ? 'Sign In' : 'Sign Up',
-      navButtonText: this.type === 'signin' ? 'Sign Up' : 'Sign In',
-      direction: this.type === 'signin' ? 'signup' : 'signin',
+      /* Modal */
+      show: false,
+      animation: 'zoom',
+      /* End of Modal */
+      email: "",
+      password: "",
+      title: this.type === "signin" ? "Sign In" : "Sign Up",
+      navButtonText: this.type === "signin" ? "Sign Up" : "Sign In",
+      direction: this.type === "signin" ? "signup" : "signin",
       bottomText:
-      this.type === 'signup'
-        ? 'Already have an Account?'
-        : 'Don\'t have an Account?'
+        this.type === "signup"
+          ? "Already have an Account?"
+          : "Don't have an Account?"
     };
   },
   computed: {
     isLoading() {
-      console.log('isLoading')
-      if (this.type === 'signin') {
-        return this.$store.getters.isSigningIn
+      console.log("isLoading");
+      if (this.type === "signin") {
+        return this.$store.getters.isSigningIn;
       }
       return this.$store.getters.isSigningUp;
     }
   },
   created() {
-    Validator.extend('strong_password', {
+    Validator.extend("strong_password", {
       getMessage: field => `The ${field} must be 6 characters long or more.`,
       validate: value => {
         console.log(value);
@@ -105,14 +117,17 @@ export default {
     });
   },
   methods: {
+    onShow(animation) {
+      this.show = true;
+    },
     signin() {
-      return this.$store.dispatch('SIGN_IN', {
+      return this.$store.dispatch("SIGN_IN", {
         email: this.email,
         password: this.password
       });
     },
     signup() {
-      return this.$store.dispatch('SIGN_UP', {
+      return this.$store.dispatch("SIGN_UP", {
         email: this.email,
         password: this.password
       });
@@ -120,7 +135,7 @@ export default {
     async onSubmit() {
       const result = await this.$validator.validateAll();
       if (result) {
-        if (this.type === 'signin') {
+        if (this.type === "signin") {
           await this.signin();
         } else {
           await this.signup();
@@ -128,7 +143,7 @@ export default {
         const error = this.$store.getters.isAuthError;
         const authenticated = this.$store.getters.isAuthenticated;
         if (!error && authenticated) {
-          this.$router.push('/patients');
+          this.$router.push("/patients");
         }
       }
     }
@@ -137,6 +152,17 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.body {
+  text-align: center;
+  padding-top: 15px;
+}
+
+.header {
+  font-size: 1.2rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e9e9e9;
+}
+
 .auth-container {
   margin: 2rem 1rem;
   border: 2px solid $secondary;

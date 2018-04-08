@@ -113,6 +113,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.modal {
+  position: fixed;
+}
+
 .modal,
 .modal-mask {
   top: 0;
@@ -120,10 +124,6 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 100;
-}
-
-.modal {
-  position: fixed;
 }
 
 .modal-mask {
@@ -153,36 +153,29 @@ export default {
   width: 16px;
   height: 16px;
   z-index: 9999;
-}
-
-.modal-close:before,
-.modal-close:after {
-  position: absolute;
-  content: "";
-  height: 2px;
-  width: 100%;
-  top: 50%;
-  left: 0;
-  margin-top: -1px;
-  background: #999;
-  border-radius: 100%;
-  -webkit-transition: background 0.2s;
-  transition: background 0.2s;
-}
-
-.modal-close:before {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-.modal-close:after {
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-}
-
-.modal-close:hover:before,
-.modal-close:hover:after {
-  background: #333;
+  &:before,
+  &:after {
+    position: absolute;
+    content: "";
+    height: 2px;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    margin-top: -1px;
+    background: #999;
+    border-radius: 100%;
+    transition: background 0.2s;
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
+  &:hover:before,
+  &:hover:after {
+    background: #333;
+  }
 }
 
 /* -- fade -- */
@@ -199,7 +192,6 @@ export default {
 }
 
 .modal-fade-enter-active {
-  -webkit-animation: modal-fade-enter both ease-in;
   animation: modal-fade-enter both ease-in;
 }
 
@@ -216,7 +208,45 @@ export default {
 }
 
 .modal-fade-leave-active {
-  -webkit-animation: modal-fade-leave both ease-out;
   animation: modal-fade-leave both ease-out;
+}
+
+/* -- zoom -- */
+@-webkit-keyframes modal-zoom-enter {
+  from {
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+}
+
+@keyframes modal-zoom-enter {
+  from {
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+}
+
+.modal-zoom-enter-active {
+  -webkit-animation: modal-zoom-enter both cubic-bezier(0.4, 0, 0, 1.5);
+  animation: modal-zoom-enter both cubic-bezier(0.4, 0, 0, 1.5);
+}
+
+@-webkit-keyframes modal-zoom-leave {
+  to {
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+}
+
+@keyframes modal-zoom-leave {
+  to {
+    -webkit-transform: scale3d(0.3, 0.3, 0.3);
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+}
+
+.modal-zoom-leave-active {
+  -webkit-animation: modal-zoom-leave both;
+  animation: modal-zoom-leave both;
 }
 </style>
