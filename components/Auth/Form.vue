@@ -28,7 +28,6 @@
                       <span v-if="!isLoading">{{ title }}</span>
                       <spinner size="1.4rem" :loading="isLoading"></spinner>
                     </app-button>
-                    <app-button @click="onShow">show modal</app-button>
                   </div>
                 </div>
               </form>
@@ -47,18 +46,14 @@
         </div>
       </div>
       <app-footer></app-footer>
-      <modal measure="em" :show="show" :animation="animation" :width="28.5" :height="17" :duration="301" className="my-dialog" @hide="show = false">
-        <div class="header">Vodal</div>
-        <div class="body">A vue modal with animations.</div>
-        <button class="vodal-confirm-btn" @click="show = false">ok</button>
-      </modal>
+      <modal-info @close="close" :show="show" :message="message" title="ERROR"></modal-info>
     </div>
   </div>
 </template>
 
 <script>
 import { Validator } from "vee-validate";
-import Modal from "~/components/Modal";
+import ModalInfo from "~/components/Modal/Info";
 import AppButton from "~/components/Button";
 import AppFooter from "~/components/Footer";
 import Spinner from "~/components/Spinner";
@@ -74,7 +69,7 @@ export default {
     }
   },
   components: {
-    Modal,
+    ModalInfo,
     LogoBar,
     Spinner,
     AppButton,
@@ -83,11 +78,9 @@ export default {
   },
   data() {
     return {
-      /* Modal */
       show: false,
-      animation: 'zoom',
-      /* End of Modal */
       email: "",
+      message: "",
       password: "",
       title: this.type === "signin" ? "Sign In" : "Sign Up",
       navButtonText: this.type === "signin" ? "Sign Up" : "Sign In",
@@ -100,7 +93,6 @@ export default {
   },
   computed: {
     isLoading() {
-      console.log("isLoading");
       if (this.type === "signin") {
         return this.$store.getters.isSigningIn;
       }
@@ -111,14 +103,13 @@ export default {
     Validator.extend("strong_password", {
       getMessage: field => `The ${field} must be 6 characters long or more.`,
       validate: value => {
-        console.log(value);
         return value && value.length >= 6;
       }
     });
   },
   methods: {
-    onShow(animation) {
-      this.show = true;
+    close() {
+      this.show = !this.show;
     },
     signin() {
       return this.$store.dispatch("SIGN_IN", {
@@ -133,18 +124,22 @@ export default {
       });
     },
     async onSubmit() {
-      const result = await this.$validator.validateAll();
-      if (result) {
-        if (this.type === "signin") {
-          await this.signin();
-        } else {
-          await this.signup();
+      try {
+        const result = await this.$validator.validateAll();
+        if (result) {
+          if (this.type === "signin") {
+            await this.signin();
+          } else {
+            await this.signup();
+          }
         }
-        const error = this.$store.getters.isAuthError;
         const authenticated = this.$store.getters.isAuthenticated;
-        if (!error && authenticated) {
+        if (authenticated) {
           this.$router.push("/patients");
         }
+      } catch(error) {
+        this.show = true
+        this.message = this.$store.getters.authError.code
       }
     }
   }
@@ -152,17 +147,6 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.body {
-  text-align: center;
-  padding-top: 15px;
-}
-
-.header {
-  font-size: 1.2rem;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e9e9e9;
-}
-
 .auth-container {
   margin: 2rem 1rem;
   border: 2px solid $secondary;

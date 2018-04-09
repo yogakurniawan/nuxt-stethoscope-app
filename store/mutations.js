@@ -16,7 +16,8 @@ export default {
 		state.auth[types.SIGNIN.loadingKey] = true
 	},
 	[types.SIGNIN.FAILURE] (state, error) {
-		state.auth[types.SIGNIN.errorKey] = error
+    state.auth[types.SIGNIN.errorKey] = error
+    state.auth[types.SIGNIN.loadingKey] = false
 	},
   [types.SIGNUP.SUCCESS] (state, payload) {
     state.auth[types.SIGNUP.loadingKey] = false
@@ -27,6 +28,7 @@ export default {
 		state.auth[types.SIGNUP.loadingKey] = true
 	},
 	[types.SIGNUP.FAILURE] (state, error) {
-		state.auth[types.SIGNUP.errorKey] = error
+    state.auth[types.SIGNUP.errorKey] = error
+    state.auth[types.SIGNUP.loadingKey] = false
 	},
 }

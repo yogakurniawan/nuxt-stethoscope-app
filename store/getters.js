@@ -15,6 +15,11 @@ export default {
     const signupError = state.auth[types.SIGNUP.errorKey]
     return signinError != null || signupError != null
   },
+  authError(state) {
+    const signinError = state.auth[types.SIGNIN.errorKey]
+    const signupError = state.auth[types.SIGNUP.errorKey]
+    return signinError || signupError
+  },
   token(state) {
     return state.auth.token
   }

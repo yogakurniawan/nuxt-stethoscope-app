@@ -4,39 +4,35 @@ import * as Local from '~/utils/localStorage'
 import * as mutationTypes from './mutation-types'
 
 export default {
-  SIGN_UP({ commit, dispatch }, { email, password }) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        commit(mutationTypes.SIGNUP.PENDING)
-        const data = await firebase.auth().createUserWithEmailAndPassword(email, password)
-        const currentUser = firebase.auth().currentUser
-        await currentUser.sendEmailVerification()
-        commit(mutationTypes.SIGNUP.SUCCESS, user)
-        dispatch('LOAD_TOKEN')
-        Local.setItem('user', data)
-        Cookie.set('user', data)
-        resolve()
-      } catch (error) {
-        commit(mutationTypes.SIGNUP.FAILURE, error)
-        reject()
-      }
-    })
+  async SIGN_UP({ commit, dispatch }, { email, password }) {
+    try {
+      commit(mutationTypes.SIGNUP.PENDING)
+      const data = await firebase.auth().createUserWithEmailAndPassword(email, password)
+      const currentUser = firebase.auth().currentUser
+      await currentUser.sendEmailVerification()
+      commit(mutationTypes.SIGNUP.SUCCESS, user)
+      dispatch('LOAD_TOKEN')
+      Local.setItem('user', data)
+      Cookie.set('user', data)
+      return Promise.resolve()
+    } catch (error) {
+      commit(mutationTypes.SIGNUP.FAILURE, error)
+      return Promise.reject()
+    }
   },
-  SIGN_IN({ commit, dispatch }, { email, password }) {
-    return new Promise(async (resolve, reject) => {
-      try {
-        commit(mutationTypes.SIGNIN.PENDING)
-        const data = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
-        commit(mutationTypes.SIGNIN.SUCCESS, data.user)
-        dispatch('LOAD_TOKEN')
-        Local.setItem('user', data.user)
-        Cookie.set('user', data.user)
-        resolve()
-      } catch (error) {
-        commit(mutationTypes.SIGNIN.FAILURE, error)
-        reject()
-      }
-    })
+  async SIGN_IN({ commit, dispatch }, { email, password }) {
+    try {
+      commit(mutationTypes.SIGNIN.PENDING)
+      const data = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
+      commit(mutationTypes.SIGNIN.SUCCESS, data.user)
+      dispatch('LOAD_TOKEN')
+      Local.setItem('user', data.user)
+      Cookie.set('user', data.user)
+      return Promise.resolve()
+    } catch (error) {
+      commit(mutationTypes.SIGNIN.FAILURE, error)
+      return Promise.reject()
+    }
   },
   INIT_AUTH({ commit }, req) {
     let user = null
