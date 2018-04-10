@@ -26,7 +26,7 @@
                   <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7">
                     <app-button class="upper-button button push-right">
                       <span v-if="!isLoading">{{ title }}</span>
-                      <spinner size="1.4rem" :loading="isLoading"></spinner>
+                      <spinner size="1.2rem" :loading="isLoading"></spinner>
                     </app-button>
                   </div>
                 </div>
