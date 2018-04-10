@@ -1,5 +1,5 @@
 <template>
-  <modal measure="rem" :show="show" :animation="animation" :width="width" :height="height" :duration="duration" @hide="$emit('close')">
+  <modal measure="rem" :show="show" closeOnEsc :animation="animation" :width="width" :height="height" :duration="duration" @hide="$emit('close')">
     <div class="header">{{ title }}</div>
     <div class="body">{{ message }}</div>
     <div class="button-section">
