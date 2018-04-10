@@ -110,7 +110,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-normal-plain {
-  @include button-variant($white, $white);
+  @include button-variant($plain, $plain);
 }
 
 // @each $color, $value in $theme-colors {

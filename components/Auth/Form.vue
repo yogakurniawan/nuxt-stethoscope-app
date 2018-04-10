@@ -3,7 +3,7 @@
     <logo-bar></logo-bar>
     <div class="container-fluid">
       <div class="row center-xs">
-        <div class="col-xs-12 col-sm-8 col-md-7 col-lg-6">
+        <div class="col-xs-12 col-sm-8 col-md-7 col-lg-5">
           <div class="auth-container">
             <div>
               <h1>{{ title }}</h1>
@@ -47,6 +47,7 @@
       </div>
       <app-footer></app-footer>
       <modal-info @close="close" :show="show" :message="message" title="ERROR"></modal-info>
+      <!-- <modal-confirmation @close="close" @abort="onAbort" @continue="onContinue" :show="show" :message="message"></modal-confirmation> -->
     </div>
   </div>
 </template>
@@ -54,6 +55,7 @@
 <script>
 import { Validator } from "vee-validate";
 import ModalInfo from "~/components/Modal/Info";
+import ModalConfirmation from "~/components/Modal/Confirmation";
 import AppButton from "~/components/Button";
 import AppFooter from "~/components/Footer";
 import Spinner from "~/components/Spinner";
@@ -69,6 +71,7 @@ export default {
     }
   },
   components: {
+    ModalConfirmation,
     ModalInfo,
     LogoBar,
     Spinner,
@@ -108,6 +111,14 @@ export default {
     });
   },
   methods: {
+    onAbort() {
+      this.close()
+      console.log('abort')
+    },
+    onContinue() {
+      this.close()
+      console.log('continue')
+    },
     close() {
       this.show = !this.show;
     },

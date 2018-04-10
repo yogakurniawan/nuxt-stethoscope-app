@@ -1,5 +1,5 @@
 <template>
-  <modal measure="rem" :show="show" :animation="animation" :width="width" :height="height" :duration="duration" className="my-dialog" @hide="$emit('close')">
+  <modal measure="rem" :show="show" :animation="animation" :width="width" :height="height" :duration="duration" @hide="$emit('close')">
     <div class="header">{{ title }}</div>
     <div class="body">{{ message }}</div>
     <div class="button-section">
@@ -36,7 +36,7 @@ export default {
       height: 13,
       duration: 200,
       width: 28,
-      animation: 'zoom'
+      animation: "zoom"
     };
   }
 };
