@@ -4,6 +4,20 @@ import * as Local from '~/utils/localStorage'
 import * as mutationTypes from './mutation-types'
 
 export default {
+  async SIGN_IN({ commit, dispatch }, { email, password }) {
+    try {
+      commit(mutationTypes.SIGNIN.PENDING)
+      const data = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
+      commit(mutationTypes.SIGNIN.SUCCESS, data.user)
+      dispatch('LOAD_TOKEN')
+      Local.setItem('user', data.user)
+      Cookie.set('user', data.user)
+      return Promise.resolve()
+    } catch (error) {
+      commit(mutationTypes.SIGNIN.FAILURE, error)
+      return Promise.reject()
+    }
+  },
   async SIGN_UP({ commit, dispatch }, { email, password }) {
     try {
       commit(mutationTypes.SIGNUP.PENDING)
@@ -17,20 +31,6 @@ export default {
       return Promise.resolve()
     } catch (error) {
       commit(mutationTypes.SIGNUP.FAILURE, error)
-      return Promise.reject()
-    }
-  },
-  async SIGN_IN({ commit, dispatch }, { email, password }) {
-    try {
-      commit(mutationTypes.SIGNIN.PENDING)
-      const data = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
-      commit(mutationTypes.SIGNIN.SUCCESS, data.user)
-      dispatch('LOAD_TOKEN')
-      Local.setItem('user', data.user)
-      Cookie.set('user', data.user)
-      return Promise.resolve()
-    } catch (error) {
-      commit(mutationTypes.SIGNIN.FAILURE, error)
       return Promise.reject()
     }
   },

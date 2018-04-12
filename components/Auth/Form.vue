@@ -1,6 +1,5 @@
 <template>
   <div>
-    <logo-bar></logo-bar>
     <div class="container-fluid">
       <div class="row center-xs">
         <div class="col-xs-12 col-sm-8 col-md-7 col-lg-5">
@@ -45,7 +44,6 @@
           </div>
         </div>
       </div>
-      <app-footer></app-footer>
       <modal-info @close="close" :show="show" :message="message" title="ERROR"></modal-info>
       <!-- <modal-confirmation @close="close" @abort="onAbort" @continue="onContinue" :show="show" :message="message"></modal-confirmation> -->
     </div>
@@ -57,10 +55,8 @@ import { Validator } from "vee-validate";
 import ModalInfo from "~/components/Modal/Info";
 import ModalConfirmation from "~/components/Modal/Confirmation";
 import AppButton from "~/components/Button";
-import AppFooter from "~/components/Footer";
 import Spinner from "~/components/Spinner";
 import AppInput from "~/components/Forms/Input";
-import LogoBar from "./LogoBar";
 
 export default {
   props: {
@@ -73,11 +69,9 @@ export default {
   components: {
     ModalConfirmation,
     ModalInfo,
-    LogoBar,
     Spinner,
     AppButton,
-    AppInput,
-    AppFooter
+    AppInput
   },
   data() {
     return {
