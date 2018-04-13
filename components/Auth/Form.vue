@@ -1,52 +1,50 @@
 <template>
-  <div>
-    <div class="container-fluid">
-      <div class="row center-xs">
-        <div class="col-xs-12 col-sm-8 col-md-7 col-lg-5">
-          <div class="auth-container">
-            <div>
-              <h1>{{ title }}</h1>
-            </div>
-            <div class="upper-box">
-              <form @submit.prevent="onSubmit">
-                <div class="row center-xs">
-                  <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7 field">
-                    <app-input :invalid="errors.has('email')" v-validate="'required|email'" v-model="email" type="text" name="email" placeholder="Email" />
-                    <span v-show="errors.has('email')" class="push-left invalid-feedback">{{ errors.first('email') }}</span>
-                  </div>
-                </div>
-                <div class="row center-xs">
-                  <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7 field">
-                    <app-input :invalid="errors.has('password')" v-validate="'required|strong_password'" v-model="password" type="password" name="password" placeholder="Password" />
-                    <span v-show="errors.has('password')" class="push-left invalid-feedback">{{ errors.first('password') }}</span>
-                  </div>
-                </div>
-                <div class="row center-xs">
-                  <div class="col-xs-12 col-sm-9 col-md-6 col-lg-7">
-                    <app-button class="upper-button button push-right">
-                      <span v-if="!isLoading">{{ title }}</span>
-                      <spinner size="1.2rem" :loading="isLoading"></spinner>
-                    </app-button>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="bottom-box">
+  <div class="container-fluid">
+    <div class="row center-xs">
+      <div class="col-xs-12 col-sm-8 col-md-7 col-lg-5">
+        <div class="auth-container">
+          <div>
+            <h1>{{ title }}</h1>
+          </div>
+          <div class="upper-box">
+            <form @submit.prevent="onSubmit">
               <div class="row center-xs">
-                <div class="col-xs-9 col-sm-6 col-md-4 col-lg-5 bottom-text">{{ bottomText }}</div>
-                <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
-                  <app-button :link="true" :to="direction" class="button push-right">
-                    {{ navButtonText }}
+                <div class="col-xs-12 col-sm-9 col-md-7 col-lg-8 field">
+                  <app-input :invalid="errors.has('email')" v-validate="'required|email'" v-model="email" type="text" name="email" placeholder="Email" />
+                  <span v-show="errors.has('email')" class="push-left invalid-feedback">{{ errors.first('email') }}</span>
+                </div>
+              </div>
+              <div class="row center-xs">
+                <div class="col-xs-12 col-sm-9 col-md-7 col-lg-8 field">
+                  <app-input :invalid="errors.has('password')" v-validate="'required|strong_password'" v-model="password" type="password" name="password" placeholder="Password" />
+                  <span v-show="errors.has('password')" class="push-left invalid-feedback">{{ errors.first('password') }}</span>
+                </div>
+              </div>
+              <div class="row center-xs">
+                <div class="col-xs-12 col-sm-9 col-md-7 col-lg-8">
+                  <app-button class="upper-button button push-right">
+                    <span v-if="!isLoading">{{ title }}</span>
+                    <spinner size="1.2rem" :loading="isLoading"></spinner>
                   </app-button>
                 </div>
+              </div>
+            </form>
+          </div>
+          <div class="bottom-box">
+            <div class="row center-xs">
+              <div class="col-xs-9 col-sm-6 col-md-5 col-lg-6 bottom-text">{{ bottomText }}</div>
+              <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+                <app-button :link="true" :to="direction" class="button push-right">
+                  {{ navButtonText }}
+                </app-button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <modal-info @close="close" :show="show" :message="message" title="ERROR"></modal-info>
-      <!-- <modal-confirmation @close="close" @abort="onAbort" @continue="onContinue" :show="show" :message="message"></modal-confirmation> -->
     </div>
+    <modal-info @close="close" :show="show" :message="message" title="ERROR"></modal-info>
+    <!-- <modal-confirmation @close="close" @abort="onAbort" @continue="onContinue" :show="show" :message="message"></modal-confirmation> -->
   </div>
 </template>
 
@@ -106,12 +104,12 @@ export default {
   },
   methods: {
     onAbort() {
-      this.close()
-      console.log('abort')
+      this.close();
+      console.log("abort");
     },
     onContinue() {
-      this.close()
-      console.log('continue')
+      this.close();
+      console.log("continue");
     },
     close() {
       this.show = !this.show;
@@ -142,9 +140,9 @@ export default {
         if (authenticated) {
           this.$router.push("/patients");
         }
-      } catch(error) {
-        this.show = true
-        this.message = this.$store.getters.authError.code
+      } catch (error) {
+        this.show = true;
+        this.message = this.$store.getters.authError.code;
       }
     }
   }
