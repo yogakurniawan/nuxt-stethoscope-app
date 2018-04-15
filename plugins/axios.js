@@ -1,4 +1,5 @@
 import firebase from 'firebase'
+import axios from 'axios'
 import { updateQueryStringParameter } from '../utils/request'
 
 export default function ({ $axios, redirect, store, ...rest }) {
@@ -6,14 +7,11 @@ export default function ({ $axios, redirect, store, ...rest }) {
     const { response } = error
     const code = parseInt(response && response.status)
     if (code === 401) {
-      const originalRequest = response.config
-      originalRequest.baseURL = ''
-      originalRequest._retry = true
       const result = await store.dispatch('REFRESH_TOKEN')
       if (result) {
-        const url = updateQueryStringParameter(originalRequest.url, 'auth', store.getters.token)
-        originalRequest.url = url
-        return $axios(originalRequest)
+        const url = updateQueryStringParameter(response.config.url, 'auth', store.getters.token)
+        response.config.url = url
+        return axios(response.config)
       } else {
         redirect(301, '/signin')
       }
@@ -21,6 +19,7 @@ export default function ({ $axios, redirect, store, ...rest }) {
   })
 
   $axios.onRequest(config => {
+    console.log(config)
     config.url = `${config.url}?auth=${store.getters.token}`
   })
 }

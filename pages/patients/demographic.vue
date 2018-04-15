@@ -45,10 +45,8 @@ export default {
         fullName: this.fullName,
         practiceName: this.practiceName
       };
-      const url = `${process.env.baseUrl}/config.json`;
-      const data = await this.$axios.$post(url, patient);
-      console.log(data);
-    }
+
+      const data = await this.$axios.$post(url, patient);    }
   }
 };
 </script>

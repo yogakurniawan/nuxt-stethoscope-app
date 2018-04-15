@@ -123,6 +123,24 @@ export default {
         password: this.password
       });
     },
+    async createConfig() {
+      const url = `${process.env.baseUrl}/config.json`;
+      const user = this.$store.getters.user;
+      const params = {
+        orderBy: JSON.stringify("uid"),
+        startAt: JSON.stringify(user.uid),
+        endAt: JSON.stringify(user.uid)
+      };
+      const response = await this.$axios.$get(url, { params });
+      if (!Object.keys(response).length) {
+        const data = {
+          uid: user.uid,
+          completeInitialData: false
+        };
+        await this.$axios.$post(url, data);
+      } else {
+      }
+    },
     async onSubmit() {
       try {
         const result = await this.$validator.validateAll();
@@ -133,6 +151,7 @@ export default {
             const emailVerified = this.$store.getters.isEmailVerified;
             if (authenticated && emailVerified) {
               this.$router.push("/patients");
+              this.createConfig();
             }
             if (!emailVerified) {
               this.$store.dispatch("SIGN_OUT");

@@ -31,7 +31,7 @@ export default {
       return Promise.reject()
     }
   },
-  INIT_AUTH({ commit }, req) {
+  INIT_AUTH({ commit, dispatch }, req) {
     let user = null
     if (req) {
       if (!req.headers.cookie) {
@@ -48,6 +48,7 @@ export default {
       user = Local.getItem('user')
     }
     commit('SET_USER', user)
+    commit('SET_TOKEN', user.stsTokenManager.accessToken)
   },
   async SIGN_OUT({ commit, ...rest }) {
     await firebase.auth().signOut()

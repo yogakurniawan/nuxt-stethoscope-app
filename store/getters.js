@@ -4,6 +4,9 @@ export default {
   isAuthenticated(state) {
     return state.auth.user != null
   },
+  user(state) {
+    return state.auth.user
+  },
   isEmailVerified(state) {
     const user = state.auth.user;
     return user ? user.emailVerified : false;
