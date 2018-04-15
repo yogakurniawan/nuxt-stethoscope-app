@@ -7,28 +7,16 @@ export default {
   SET_TOKEN(state, payload) {
     state.auth.token = payload
   },
-  [types.SIGNIN.SUCCESS] (state, payload) {
-    state.auth[types.SIGNIN.loadingKey] = false
+  [types.AUTH.SUCCESS] (state, payload) {
+    state.auth[types.AUTH.loadingKey] = false
     state.auth.user = payload
-    state.auth[types.SIGNIN.errorKey] = null
+    state.auth[types.AUTH.errorKey] = null
 	},
-	[types.SIGNIN.PENDING] (state) {
-		state.auth[types.SIGNIN.loadingKey] = true
+	[types.AUTH.PENDING] (state) {
+		state.auth[types.AUTH.loadingKey] = true
 	},
-	[types.SIGNIN.FAILURE] (state, error) {
-    state.auth[types.SIGNIN.errorKey] = error
-    state.auth[types.SIGNIN.loadingKey] = false
-	},
-  [types.SIGNUP.SUCCESS] (state, payload) {
-    state.auth[types.SIGNUP.loadingKey] = false
-    state.auth.user = payload
-    state.auth[types.SIGNUP.errorKey] = null
-	},
-	[types.SIGNUP.PENDING] (state) {
-		state.auth[types.SIGNUP.loadingKey] = true
-	},
-	[types.SIGNUP.FAILURE] (state, error) {
-    state.auth[types.SIGNUP.errorKey] = error
-    state.auth[types.SIGNUP.loadingKey] = false
-	},
+	[types.AUTH.FAILURE] (state, error) {
+    state.auth[types.AUTH.errorKey] = error
+    state.auth[types.AUTH.loadingKey] = false
+	}
 }

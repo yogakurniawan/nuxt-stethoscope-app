@@ -4,21 +4,20 @@ export default {
   isAuthenticated(state) {
     return state.auth.user != null
   },
-  isSigningIn(state) {
-    return state.auth[types.SIGNIN.loadingKey]
+  isEmailVerified(state) {
+    const user = state.auth.user;
+    return user ? user.emailVerified : false;
   },
-  isSigningUp(state) {
-    return state.auth[types.SIGNUP.loadingKey]
+  isAuthLoading(state) {
+    return state.auth[types.AUTH.loadingKey]
   },
   isAuthError(state) {
-    const signinError = state.auth[types.SIGNIN.errorKey]
-    const signupError = state.auth[types.SIGNUP.errorKey]
-    return signinError != null || signupError != null
+    const authError = state.auth[types.AUTH.errorKey]
+    return authError != null
   },
   authError(state) {
-    const signinError = state.auth[types.SIGNIN.errorKey]
-    const signupError = state.auth[types.SIGNUP.errorKey]
-    return signinError || signupError
+    const authError = state.auth[types.AUTH.errorKey]
+    return authError
   },
   token(state) {
     return state.auth.token

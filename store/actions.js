@@ -6,31 +6,28 @@ import * as mutationTypes from './mutation-types'
 export default {
   async SIGN_IN({ commit, dispatch }, { email, password }) {
     try {
-      commit(mutationTypes.SIGNIN.PENDING)
+      commit(mutationTypes.AUTH.PENDING)
       const data = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
-      commit(mutationTypes.SIGNIN.SUCCESS, data.user)
+      commit(mutationTypes.AUTH.SUCCESS, data.user)
       dispatch('LOAD_TOKEN')
       Local.setItem('user', data.user)
       Cookie.set('user', data.user)
       return Promise.resolve()
     } catch (error) {
-      commit(mutationTypes.SIGNIN.FAILURE, error)
+      commit(mutationTypes.AUTH.FAILURE, error)
       return Promise.reject()
     }
   },
   async SIGN_UP({ commit, dispatch }, { email, password }) {
     try {
-      commit(mutationTypes.SIGNUP.PENDING)
+      commit(mutationTypes.AUTH.PENDING)
       const data = await firebase.auth().createUserWithEmailAndPassword(email, password)
       const currentUser = firebase.auth().currentUser
       await currentUser.sendEmailVerification()
-      commit(mutationTypes.SIGNUP.SUCCESS, user)
-      dispatch('LOAD_TOKEN')
-      Local.setItem('user', data)
-      Cookie.set('user', data)
+      commit(mutationTypes.AUTH.SUCCESS, null)
       return Promise.resolve()
     } catch (error) {
-      commit(mutationTypes.SIGNUP.FAILURE, error)
+      commit(mutationTypes.AUTH.FAILURE, error)
       return Promise.reject()
     }
   },
@@ -55,6 +52,7 @@ export default {
   async SIGN_OUT({ commit, ...rest }) {
     await firebase.auth().signOut()
     commit('SET_USER', null)
+    commit('SET_TOKEN', null)
     Cookie.remove('user')
     if (process.client) {
       Local.removeItem('user')

@@ -11,10 +11,8 @@ export default () => {
       auth: {
         token: null,
         user: null,
-        [types.SIGNIN.errorKey]: null,
-        [types.SIGNIN.loadingKey]: false,
-        [types.SIGNUP.errorKey]: null,
-        [types.SIGNUP.loadingKey]: false
+        [types.AUTH.errorKey]: null,
+        [types.AUTH.loadingKey]: false
       }
     },
     actions,

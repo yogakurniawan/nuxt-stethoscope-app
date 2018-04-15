@@ -65,7 +65,6 @@ module.exports = {
     }
   },
   build: {
-    vendor: ['axios', 'firebase'],
     analyze: true,
     /*
     ** Run ESLint on save

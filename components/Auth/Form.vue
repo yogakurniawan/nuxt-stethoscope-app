@@ -32,10 +32,10 @@
           </div>
           <div class="bottom-box">
             <div class="row center-xs">
-              <div class="col-xs-9 col-sm-6 col-md-5 col-lg-6 bottom-text">{{ bottomText }}</div>
+              <div class="col-xs-9 col-sm-6 col-md-5 col-lg-6 bottom-text">{{ questionText }}</div>
               <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
                 <app-button :link="true" :to="direction" class="button push-right">
-                  {{ navButtonText }}
+                  {{ switchPageText }}
                 </app-button>
               </div>
             </div>
@@ -78,9 +78,9 @@ export default {
       message: "",
       password: "",
       title: this.type === "signin" ? "Sign In" : "Sign Up",
-      navButtonText: this.type === "signin" ? "Sign Up" : "Sign In",
+      switchPageText: this.type === "signin" ? "Sign Up" : "Sign In",
       direction: this.type === "signin" ? "signup" : "signin",
-      bottomText:
+      questionText:
         this.type === "signup"
           ? "Already have an Account?"
           : "Don't have an Account?"
@@ -88,10 +88,7 @@ export default {
   },
   computed: {
     isLoading() {
-      if (this.type === "signin") {
-        return this.$store.getters.isSigningIn;
-      }
-      return this.$store.getters.isSigningUp;
+      return this.$store.getters.isAuthLoading;
     }
   },
   created() {
@@ -132,13 +129,20 @@ export default {
         if (result) {
           if (this.type === "signin") {
             await this.signin();
+            const authenticated = this.$store.getters.isAuthenticated;
+            const emailVerified = this.$store.getters.isEmailVerified;
+            if (authenticated && emailVerified) {
+              this.$router.push("/patients");
+            }
+            if (!emailVerified) {
+              this.$store.dispatch("SIGN_OUT");
+              this.show = true;
+              this.message = "Please verify your email first";
+            }
           } else {
             await this.signup();
+            this.$router.push("/signup-success");
           }
-        }
-        const authenticated = this.$store.getters.isAuthenticated;
-        if (authenticated) {
-          this.$router.push("/patients");
         }
       } catch (error) {
         this.show = true;

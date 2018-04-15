@@ -9,5 +9,4 @@ const createAsyncMutation = (type) => ({
 	errorKey: camelCase(`${type}_ERROR`)
 })
 
-export const SIGNIN = createAsyncMutation('SIGNIN')
-export const SIGNUP = createAsyncMutation('SIGNUP')
+export const AUTH = createAsyncMutation('AUTH')
