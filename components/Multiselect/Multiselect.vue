@@ -17,7 +17,7 @@
         <div class="multiselect__tags-wrap" v-show="visibleValues.length > 0">
           <template v-for="option of visibleValues" @mousedown.prevent>
             <slot name="tag" :option="option" :search="search" :remove="removeElement">
-              <span class="multiselect__tag">
+              <span v-bind:key="option" class="multiselect__tag">
                 <span v-text="getOptionLabel(option)"></span>
                 <i aria-hidden="true" tabindex="1" @keydown.enter.prevent="removeElement(option)"  @mousedown.prevent="removeElement(option)" class="multiselect__tag-icon"></i>
               </span>
@@ -333,7 +333,7 @@
   }
 </script>
 
-<style>
+<style lang="scss" scoped>
 fieldset[disabled] .multiselect {
   pointer-events: none;
 }
@@ -389,7 +389,7 @@ fieldset[disabled] .multiselect {
 .multiselect__input,
 .multiselect__single {
   font-family: inherit;
-  font-size: 16px;
+  font-size: $font-size-base;
   touch-action: manipulation;
 }
 
@@ -398,7 +398,7 @@ fieldset[disabled] .multiselect {
   display: block;
   position: relative;
   width: 100%;
-  min-height: 40px;
+  min-height: 2.5rem;
   text-align: left;
   color: #35495E;
 }
@@ -451,7 +451,6 @@ fieldset[disabled] .multiselect {
   width: calc(100%);
   transition: border 0.1s ease;
   box-sizing: border-box;
-  margin-bottom: 8px;
   vertical-align: top;
 }
 
@@ -477,7 +476,6 @@ fieldset[disabled] .multiselect {
 
 .multiselect__single {
   padding-left: 5px;
-  margin-bottom: 8px;
 }
 
 .multiselect__tags-wrap {
@@ -485,13 +483,13 @@ fieldset[disabled] .multiselect {
 }
 
 .multiselect__tags {
-  min-height: 40px;
+  min-height: 2.5rem;
   display: block;
-  padding: 8px 40px 0 8px;
+  padding: 6px 40px 0 8px;
   border-radius: 5px;
-  border: 1px solid #E8E8E8;
+  border: 1px solid $gray-400;
   background: #fff;
-  font-size: 14px;
+  font-size: $font-size-base;
 }
 
 .multiselect__tag {
@@ -529,7 +527,7 @@ fieldset[disabled] .multiselect {
 .multiselect__tag-icon:after {
   content: "×";
   color: #266d4d;
-  font-size: 14px;
+  font-size: $font-size-base;
 }
 
 .multiselect__tag-icon:focus,
@@ -544,7 +542,7 @@ fieldset[disabled] .multiselect {
 
 .multiselect__current {
   line-height: 16px;
-  min-height: 40px;
+  min-height: 2.5rem;
   box-sizing: border-box;
   display: block;
   overflow: hidden;
@@ -578,7 +576,7 @@ fieldset[disabled] .multiselect {
 .multiselect__select:before {
   position: relative;
   right: 0;
-  top: 65%;
+  top: 55%;
   color: #999;
   margin-top: 4px;
   border-style: solid;
@@ -643,11 +641,10 @@ fieldset[disabled] .multiselect {
 .multiselect__option {
   display: block;
   padding: 12px;
-  min-height: 40px;
+  min-height: 2.5rem;
   line-height: 16px;
   text-decoration: none;
   text-transform: none;
-  vertical-align: middle;
   position: relative;
   cursor: pointer;
   white-space: nowrap;
@@ -657,10 +654,10 @@ fieldset[disabled] .multiselect {
   top: 0;
   right: 0;
   position: absolute;
-  line-height: 40px;
+  line-height: 2.5rem;
   padding-right: 12px;
   padding-left: 20px;
-  font-size: 13px;
+  font-size: $font-size-base;
 }
 
 .multiselect__option--highlight {
@@ -771,7 +768,7 @@ fieldset[disabled] .multiselect {
 }
 
 *[dir="rtl"] .multiselect__tags {
-    padding: 8px 8px 0px 40px;
+    padding: 8px 8px 0px 2.5rem;
 }
 
 *[dir="rtl"] .multiselect__content {

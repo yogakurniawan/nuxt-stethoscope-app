@@ -22,30 +22,40 @@
 </template>
 
 <script>
-  export default {
-    name: 'VButton',
-    props: {
-      type: {
-        type: String,
-        default: 'normal'
-      },
-      color: {
-        type: String,
-        default: 'primary'
-      },
-      link: {
-        type: Boolean,
-        default: false
-      },
-      to: {
-        type: String,
-        default: '/'
-      },
+export default {
+  name: "VButton",
+  props: {
+    type: {
+      type: String,
+      default: "normal"
+    },
+    color: {
+      type: String,
+      default: "primary"
+    },
+    link: {
+      type: Boolean,
+      default: false
+    },
+    to: {
+      type: String,
+      default: "/"
     }
   }
+};
 </script>
 
 <style lang="scss" scoped>
+$btn-box-shadow: inset 0 1px 0 rgba($white, 0.15),
+  0 1px 1px rgba($black, 0.075) !default;
+$btn-link-disabled-color: $gray-600 !default;
+$btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+  border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
+$btn-disabled-opacity: 0.65 !default;
+$btn-active-box-shadow: inset 0 3px 5px rgba($black, 0.125) !default;
+$btn-focus-box-shadow: $input-btn-focus-box-shadow !default;
+$btn-focus-width: $input-btn-focus-width !default;
+
 .btn {
   font-family: inherit;
   display: inline-block;
@@ -119,7 +129,6 @@ fieldset:disabled a.btn {
 //   }
 // }
 
-
 //
 // Link buttons
 //
@@ -162,7 +171,7 @@ fieldset:disabled a.btn {
 
   // Vertically space out multiple block buttons
   + .btn-block {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 }
 
@@ -174,5 +183,4 @@ input[type="button"] {
     width: 100%;
   }
 }
-
 </style>

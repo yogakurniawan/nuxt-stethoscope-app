@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import Multiselect from "vue-multiselect/src/Multiselect.vue";
+import Multiselect from "~/components/Multiselect/Multiselect.vue";
 import AppInput from "~/components/Forms/Input";
 import AppButton from "~/components/Button";
 
@@ -87,7 +87,9 @@ export default {
 
 .auth-container {
   .row {
-    margin-bottom: 1rem;
+    > div {
+      margin-bottom: 1rem;
+    }
   }
   margin: 2rem 1rem;
   padding: 0 1rem;

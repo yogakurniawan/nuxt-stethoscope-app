@@ -24,18 +24,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$input-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out !default;
+$input-box-shadow: inset 0 1px 1px rgba($black, 0.075) !default;
+$input-focus-border-color: lighten($primary, 25%) !default;
+
 .form-control {
   display: block;
   width: 100%;
   padding: $padding-y $padding-x;
   font-family: inherit;
   font-size: $font-size-base;
-  min-height: 40px;
   color: $gray-700;
   background-color: $white;
   background-clip: padding-box;
+  min-height: 2.5rem;
   border: $border-width solid $gray-400;
   border-radius: $border-radius;
+  line-height: $line-height-base;
   box-shadow: $input-box-shadow;
   transition: $input-transition; // Unstyle the caret on `<select>`s in IE10+.
   &::-ms-expand {
