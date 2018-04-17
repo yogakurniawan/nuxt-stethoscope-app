@@ -30,7 +30,7 @@ export default {
   padding: $padding-y $padding-x;
   font-family: inherit;
   font-size: $font-size-base;
-  line-height: $line-height-base;
+  min-height: 40px;
   color: $gray-700;
   background-color: $white;
   background-clip: padding-box;
