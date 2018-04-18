@@ -56,6 +56,7 @@ module.exports = {
   },
   env: {
     baseUrl: process.env.BASE_URL ||  'https://radiant-fire-8622.firebaseio.com',
+    MR_API: 'https://app.medirecords.com/rest/',
     firebase: {
       apiKey: "AIzaSyAOrmzsApwFAYSDJ9lIbsUT6ZiOHAZipwM",
       authDomain: "radiant-fire-8622.firebaseapp.com",

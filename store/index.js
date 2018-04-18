@@ -13,6 +13,11 @@ export default () => {
         user: null,
         [types.AUTH.errorKey]: null,
         [types.AUTH.loadingKey]: false
+      },
+      lookup: {
+        data: {},
+        [types.LOOKUP.errorKey]: null,
+        [types.LOOKUP.loadingKey]: false
       }
     },
     actions,

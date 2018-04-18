@@ -10,3 +10,4 @@ const createAsyncMutation = (type) => ({
 })
 
 export const AUTH = createAsyncMutation('AUTH')
+export const LOOKUP = createAsyncMutation('LOOKUP')

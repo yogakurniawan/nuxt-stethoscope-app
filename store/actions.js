@@ -76,5 +76,45 @@ export default {
       commit('SET_TOKEN', null)
       return Promise.reject()
     }
+  },
+  async LOAD_LOOKUP({ commit }, lookupName) {
+    try {
+      commit(mutationTypes.LOOKUP.PENDING);
+      const url = `${process.env.MR_API}metadata/lookup`;
+      const result = await this.$axios.get(url, {
+        params: {
+          lookupName
+        }
+      });
+      commit(mutationTypes.LOOKUP.SUCCESS, {
+        [lookupName]: result.data
+      });
+      return Promise.resolve();
+    } catch (error) {
+      commit(mutationTypes.LOOKUP.FAILURE, error)
+      return Promise.reject(error);
+    }
+  },
+  async LOAD_LOOKUP_ENTITY({ commit }, lookupName) {
+    try {
+      commit(mutationTypes.LOOKUP.PENDING);
+      const url = `${process.env.MR_API}metadata/lookupentity/${lookupName}`;
+      const result = await this.$axios.get(url);
+      commit(mutationTypes.LOOKUP.SUCCESS, {
+        [lookupName]: result.data
+      });
+      return Promise.resolve();
+    } catch (error) {
+      commit(mutationTypes.LOOKUP.FAILURE, error)
+      return Promise.reject(error);
+    }
+  },
+  async nuxtServerInit({ dispatch }) {
+    await Promise.all([
+      dispatch('LOAD_LOOKUP', 'NumberOfDoctors'),
+      dispatch('LOAD_LOOKUP', 'CurrentClinicalSystem'),
+      dispatch('LOAD_LOOKUP_ENTITY', 'ServiceProviderType'),
+      dispatch('LOAD_LOOKUP', 'StateID')
+    ])
   }
 }

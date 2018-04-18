@@ -24,5 +24,9 @@ export default {
   },
   token(state) {
     return state.auth.token
+  },
+  lookupCurrentClinicalSystem(state) {
+    const data = state.lookup.data;
+    return Object.keys(data).length ? data.CurrentClinicalSystem : [];
   }
 }

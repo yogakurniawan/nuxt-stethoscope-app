@@ -18,5 +18,17 @@ export default {
 	[types.AUTH.FAILURE] (state, error) {
     state.auth[types.AUTH.errorKey] = error
     state.auth[types.AUTH.loadingKey] = false
+	},
+  [types.LOOKUP.SUCCESS] (state, payload) {
+    state.lookup[types.LOOKUP.loadingKey] = false
+    state.lookup.data = {...state.lookup.data, ...payload};
+    state.lookup[types.LOOKUP.errorKey] = null
+	},
+	[types.LOOKUP.PENDING] (state) {
+		state.lookup[types.LOOKUP.loadingKey] = true
+	},
+	[types.LOOKUP.FAILURE] (state, error) {
+    state.lookup[types.LOOKUP.errorKey] = error
+    state.lookup[types.LOOKUP.loadingKey] = false
 	}
 }

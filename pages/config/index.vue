@@ -38,7 +38,9 @@
           </div>
           <div class="row center-xs">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              <multiselect v-model="value" :options="options" :searchable="false" :show-labels="false" placeholder="Service Provider Type"></multiselect>
+              <multiselect v-model="currentClinicalSystem" track-by="lookupGuid" :show-labels="false" label="lookupText" placeholder="Service Provider Type" :options="lookupCurrentClinicalSystem" :searchable="false" :allow-empty="false">
+                <template slot="singleLabel" slot-scope="{ option }">{{ option.lookupText }}</template>
+              </multiselect>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
               <multiselect v-model="value" :options="options" :searchable="false" :show-labels="false" placeholder="City / Suburb"></multiselect>
@@ -91,6 +93,7 @@ export default {
       addressLine1: "",
       addressLine2: "",
       postCode: "",
+      currentClinicalSystem: "",
       value: "",
       options: [
         "Select option",
@@ -109,7 +112,13 @@ export default {
       ],
       direction: "signin"
     };
-  }
+  },
+  computed: {
+    lookupCurrentClinicalSystem() {
+      console.log(this.$store.getters.lookupCurrentClinicalSystem)
+      return this.$store.getters.lookupCurrentClinicalSystem;
+    }
+  },
 };
 </script>
 

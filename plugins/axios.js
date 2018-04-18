@@ -19,7 +19,9 @@ export default function ({ $axios, redirect, store, ...rest }) {
   })
 
   $axios.onRequest(config => {
-    console.log(config)
-    config.url = `${config.url}?auth=${store.getters.token}`
+    const isMedirecords = /medirecords/.test(config.url)
+    if (!isMedirecords) {
+      config.url = `${config.url}?auth=${store.getters.token}`
+    }
   })
 }
