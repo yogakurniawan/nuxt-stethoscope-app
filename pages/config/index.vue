@@ -29,7 +29,7 @@
           </div>
           <div class="row center-xs">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              <multiselect v-model="value" :options="options" :searchable="false" :show-labels="false" placeholder="Current Clinical System"></multiselect>
+              <multiselect openDirection="below" v-model="value" :options="options" :searchable="false" :show-labels="false" placeholder="Current Clinical System"></multiselect>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
               <app-input :invalid="errors.has('Postcode')" v-validate="'required'" v-model="postCode" type="text" name="Postcode" placeholder="Postcode" />
@@ -38,20 +38,20 @@
           </div>
           <div class="row center-xs">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              <multiselect v-model="currentClinicalSystem" track-by="lookupGuid" :show-labels="false" label="lookupText" placeholder="Service Provider Type" :options="lookupCurrentClinicalSystem" :searchable="false" :allow-empty="false">
+              <multiselect openDirection="below" v-model="currentClinicalSystem" track-by="lookupGuid" :show-labels="false" label="lookupText" placeholder="Service Provider Type" :options="lookupCurrentClinicalSystem" :searchable="false" :allow-empty="false">
                 <template slot="singleLabel" slot-scope="{ option }">{{ option.lookupText }}</template>
               </multiselect>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              <multiselect v-model="value" :options="options" :searchable="false" :show-labels="false" placeholder="City / Suburb"></multiselect>
+              <multiselect openDirection="below" v-model="value" :options="options" :searchable="false" :show-labels="false" placeholder="City / Suburb"></multiselect>
             </div>
           </div>
           <div class="row center-xs">
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              <multiselect v-model="value" :options="options" :searchable="false" :show-labels="false" placeholder="Number of Doctors"></multiselect>
+              <multiselect openDirection="below" v-model="value" :options="options" :searchable="false" :show-labels="false" placeholder="Number of Doctors"></multiselect>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-              <multiselect v-model="value" :options="options" :searchable="false" :show-labels="false" placeholder="State"></multiselect>
+              <multiselect openDirection="below" v-model="value" :options="options" :searchable="false" :show-labels="false" placeholder="State"></multiselect>
             </div>
           </div>
           <div class="row end-xs">
