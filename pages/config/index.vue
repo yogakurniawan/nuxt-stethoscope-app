@@ -115,7 +115,6 @@ export default {
   },
   computed: {
     lookupCurrentClinicalSystem() {
-      console.log(this.$store.getters.lookupCurrentClinicalSystem)
       return this.$store.getters.lookupCurrentClinicalSystem;
     }
   },
