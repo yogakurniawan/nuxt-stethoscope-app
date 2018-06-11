@@ -24,7 +24,7 @@
                 <div class="col-xs-12 col-sm-9 col-md-7 col-lg-8">
                   <app-button class="upper-button button push-right">
                     <span v-if="!isLoading">{{ title }}</span>
-                    <spinner size="1.2rem" :loading="isLoading"></spinner>
+                    <spinner v-if="isLoading" width="20" height="20"></spinner>
                   </app-button>
                 </div>
               </div>
@@ -57,8 +57,8 @@ import Spinner from "~/components/Spinner";
 import AppInput from "~/components/Forms/Input";
 
 export default {
+  name: "AuthForm",
   props: {
-    name: "AuthForm",
     type: {
       type: String,
       default: "signin"
@@ -165,7 +165,7 @@ export default {
         }
       } catch (error) {
         this.show = true;
-        this.message = this.$store.getters.authError.code;
+        this.message = error.code;
       }
     }
   }

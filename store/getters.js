@@ -18,10 +18,6 @@ export default {
     const authError = state.auth[types.AUTH.errorKey]
     return authError != null
   },
-  authError(state) {
-    const authError = state.auth[types.AUTH.errorKey]
-    return authError
-  },
   token(state) {
     return state.auth.token
   },

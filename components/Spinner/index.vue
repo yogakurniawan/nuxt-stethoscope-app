@@ -1,54 +1,74 @@
 <template>
-  <div class="v-spinner" v-show="loading" :style="{ height: size }">
-    <div class="v-clip" :style="spinnerStyle">
-    </div>
-  </div>
+  <svg :width="width" :height="height" viewBox="0 0 58 58" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" fill-rule="evenodd">
+      <g transform="translate(2 1)" stroke="#FFF" stroke-width="1.5">
+        <circle cx="42.601" cy="11.462" r="5" fill-opacity="1" fill="#fff">
+          <animate attributeName="fill-opacity"
+              begin="0s" dur="1.3s"
+              values="1;0;0;0;0;0;0;0" calcMode="linear"
+              repeatCount="indefinite" />
+        </circle>
+        <circle cx="49.063" cy="27.063" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity"
+              begin="0s" dur="1.3s"
+              values="0;1;0;0;0;0;0;0" calcMode="linear"
+              repeatCount="indefinite" />
+        </circle>
+        <circle cx="42.601" cy="42.663" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity"
+              begin="0s" dur="1.3s"
+              values="0;0;1;0;0;0;0;0" calcMode="linear"
+              repeatCount="indefinite" />
+        </circle>
+        <circle cx="27" cy="49.125" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity"
+              begin="0s" dur="1.3s"
+              values="0;0;0;1;0;0;0;0" calcMode="linear"
+              repeatCount="indefinite" />
+        </circle>
+        <circle cx="11.399" cy="42.663" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity"
+              begin="0s" dur="1.3s"
+              values="0;0;0;0;1;0;0;0" calcMode="linear"
+              repeatCount="indefinite" />
+        </circle>
+        <circle cx="4.938" cy="27.063" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity"
+              begin="0s" dur="1.3s"
+              values="0;0;0;0;0;1;0;0" calcMode="linear"
+              repeatCount="indefinite" />
+        </circle>
+        <circle cx="11.399" cy="11.462" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity"
+              begin="0s" dur="1.3s"
+              values="0;0;0;0;0;0;1;0" calcMode="linear"
+              repeatCount="indefinite" />
+        </circle>
+        <circle cx="27" cy="5" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity"
+              begin="0s" dur="1.3s"
+              values="0;0;0;0;0;0;0;1" calcMode="linear"
+              repeatCount="indefinite" />
+        </circle>
+      </g>
+    </g>
+  </svg>
 </template>
 
 <script>
 export default {
-  name: 'ClipLoader',
   props: {
-    loading: {
-      type: Boolean,
-      default: true
-    },
-    size: {
+    height: {
       type: String,
-      default: '35px'
+      default: "20"
+    },
+    width: {
+      type: String,
+      default: "20"
     }
   },
-  computed: {
-    spinnerStyle() {
-      return {
-        height: this.size,
-        width: this.size,
-        background: 'transparent'
-      }
-    }
-  }
-}
+};
 </script>
 
-<style lang="scss" scoped>
-.v-spinner {
-  text-align: center;
-}
-
-.v-spinner .v-clip {
-  animation: rotate 0.75s 0s infinite linear;
-  border-radius: 100%;
-  border: 2px solid rgba(200, 255, 196, 0.5);
-  border-bottom-color: $primary;
-  display: inline-block;
-}
-
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+<style scoped>
 </style>

@@ -12,10 +12,10 @@ export default {
       dispatch('LOAD_TOKEN')
       Local.setItem('user', data.user)
       Cookie.set('user', data.user)
-      return Promise.resolve()
+      return data
     } catch (error) {
       commit(mutationTypes.AUTH.FAILURE, error)
-      return Promise.reject()
+      return Promise.reject(error)
     }
   },
   async SIGN_UP({ commit, dispatch }, { email, password }) {
@@ -25,10 +25,10 @@ export default {
       const currentUser = firebase.auth().currentUser
       await currentUser.sendEmailVerification()
       commit(mutationTypes.AUTH.SUCCESS, null)
-      return Promise.resolve()
+      return data
     } catch (error) {
       commit(mutationTypes.AUTH.FAILURE, error)
-      return Promise.reject()
+      return Promise.reject(error)
     }
   },
   INIT_AUTH({ commit, dispatch }, req) {
@@ -38,7 +38,7 @@ export default {
         return
       }
       const cookie = req.headers.cookie
-      const userCookie = cookie.split(";").find(c => c.trim().startsWith("user="))
+      const userCookie = cookie.split("").find(c => c.trim().startsWith("user="))
       if (!userCookie) {
         return
       }
@@ -71,7 +71,7 @@ export default {
     try {
       const token = await firebase.auth().currentUser.getIdToken(true)
       commit('SET_TOKEN', token)
-      return Promise.resolve(token)
+      return token
     } catch (error) {
       commit('SET_TOKEN', null)
       return Promise.reject()
@@ -79,34 +79,34 @@ export default {
   },
   async LOAD_LOOKUP({ commit }, lookupName) {
     try {
-      commit(mutationTypes.LOOKUP.PENDING);
-      const url = `${process.env.MR_API}metadata/lookup`;
+      commit(mutationTypes.LOOKUP.PENDING)
+      const url = `${process.env.MR_API}metadata/lookup`
       const result = await this.$axios.get(url, {
         params: {
           lookupName
         }
-      });
+      })
       commit(mutationTypes.LOOKUP.SUCCESS, {
         [lookupName]: result.data
-      });
-      return Promise.resolve();
+      })
+      return result
     } catch (error) {
       commit(mutationTypes.LOOKUP.FAILURE, error)
-      return Promise.reject(error);
+      return Promise.reject(error)
     }
   },
   async LOAD_LOOKUP_ENTITY({ commit }, lookupName) {
     try {
-      commit(mutationTypes.LOOKUP.PENDING);
-      const url = `${process.env.MR_API}metadata/lookupentity/${lookupName}`;
-      const result = await this.$axios.get(url);
+      commit(mutationTypes.LOOKUP.PENDING)
+      const url = `${process.env.MR_API}metadata/lookupentity/${lookupName}`
+      const result = await this.$axios.get(url)
       commit(mutationTypes.LOOKUP.SUCCESS, {
         [lookupName]: result.data
-      });
-      return Promise.resolve();
+      })
+      return result
     } catch (error) {
       commit(mutationTypes.LOOKUP.FAILURE, error)
-      return Promise.reject(error);
+      return Promise.reject(error)
     }
   },
   async nuxtServerInit({ dispatch }) {

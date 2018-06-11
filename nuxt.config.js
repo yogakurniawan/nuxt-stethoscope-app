@@ -1,21 +1,32 @@
+const path = require('path')
+
 module.exports = {
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   mode: 'universal',
   head: {
     title: 'Stethoscope App',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Cloud clinical management system - Stechoscope App' }
+    meta: [{
+        charset: 'utf-8'
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
+      {
+        hid: 'description',
+        name: 'description',
+        content: 'Cloud clinical management system - Stechoscope App'
+      }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
+    }]
   },
-  plugins: [
-    {
+  plugins: [{
       src: '~plugins/firebase.js',
       ssr: false
     },
@@ -27,21 +38,33 @@ module.exports = {
     }
   ],
   /*
-  ** Customize the progress bar color
-  */
-  loading: { color: '#3B8070' },
+   ** Customize the progress bar color
+   */
+  loading: {
+    color: '#3B8070'
+  },
   /*
-  ** Build configuration
-  */
-  css: [
-    { src: '@/assets/main.scss' },
-    { src: 'normalize.css/normalize.css', lang: 'css' },
-    { src: 'sanitize.css/sanitize.css', lang: 'css' },
-    { src: 'flexboxgrid/dist/flexboxgrid.min.css', lang: 'css' }
+   ** Build configuration
+   */
+  css: [{
+      src: '@/assets/main.scss'
+    },
+    {
+      src: 'normalize.css/normalize.css',
+      lang: 'css'
+    },
+    {
+      src: 'sanitize.css/sanitize.css',
+      lang: 'css'
+    },
+    {
+      src: 'flexboxgrid/dist/flexboxgrid.min.css',
+      lang: 'css'
+    }
   ],
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js modules
+   */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
@@ -49,8 +72,8 @@ module.exports = {
   ],
 
   /*
-  ** Axios module configuration
-  */
+   ** Axios module configuration
+   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
@@ -68,9 +91,12 @@ module.exports = {
   build: {
     analyze: true,
     /*
-    ** Run ESLint on save
-    */
-    extend(config, { isDev, isClient }) {
+     ** Run ESLint on save
+     */
+    extend(config, {
+      isDev,
+      isClient
+    }) {
       if (isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
@@ -79,6 +105,32 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+      /**
+       * Initialise SVG Sprites
+       */
+
+      // get and remove file loader
+      const rule = config.module.rules.find(r => r.test.toString() === '/\\.(png|jpe?g|gif|svg)$/');
+      config.module.rules.splice(config.module.rules.indexOf(rule), 1);
+
+      // add it again, but now without 'assets\/svg'
+      config.module.rules.push({
+        test: /\.(png|jpe?g|gif|svg)$/,
+        loader: 'url-loader',
+        exclude: /(assets\/svg)/,
+        query: {
+          limit: 1000, // 1KO
+          name: 'img/[name].[hash:7].[ext]',
+        },
+      });
+
+      config.module.rules.push({
+        test: /\.svg$/,
+        include: [
+          path.resolve(__dirname, 'assets/svg'),
+        ],
+        use: 'svg-sprite-loader',
+      });
     },
     // You cannot use ~/ or @/ here since it's a Webpack plugin
     styleResources: {
