@@ -15,7 +15,7 @@ export default {
       return data
     } catch (error) {
       commit(mutationTypes.AUTH.FAILURE, error)
-      return Promise.reject(error)
+      throw error
     }
   },
   async SIGN_UP({ commit, dispatch }, { email, password }) {
@@ -28,7 +28,7 @@ export default {
       return data
     } catch (error) {
       commit(mutationTypes.AUTH.FAILURE, error)
-      return Promise.reject(error)
+      throw error
     }
   },
   INIT_AUTH({ commit, dispatch }, req) {
@@ -74,7 +74,7 @@ export default {
       return token
     } catch (error) {
       commit('SET_TOKEN', null)
-      return Promise.reject()
+      throw error
     }
   },
   async LOAD_LOOKUP({ commit }, lookupName) {
@@ -92,7 +92,7 @@ export default {
       return result
     } catch (error) {
       commit(mutationTypes.LOOKUP.FAILURE, error)
-      return Promise.reject(error)
+      throw error
     }
   },
   async LOAD_LOOKUP_ENTITY({ commit }, lookupName) {
@@ -106,7 +106,7 @@ export default {
       return result
     } catch (error) {
       commit(mutationTypes.LOOKUP.FAILURE, error)
-      return Promise.reject(error)
+      throw error
     }
   },
   async nuxtServerInit({ dispatch }) {
