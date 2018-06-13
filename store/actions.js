@@ -5,31 +5,28 @@ import * as mutationTypes from './mutation-types'
 
 export default {
   async SIGN_IN({ commit, dispatch }, { email, password }) {
-    try {
-      commit(mutationTypes.AUTH.PENDING)
-      const data = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
-      commit(mutationTypes.AUTH.SUCCESS, data.user)
-      dispatch('LOAD_TOKEN')
-      Local.setItem('user', data.user)
-      Cookie.set('user', data.user)
-      return data
-    } catch (error) {
-      commit(mutationTypes.AUTH.FAILURE, error)
-      throw error
+    commit(mutationTypes.AUTH.PENDING)
+    const data = await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password).catch(error => error)
+    commit(mutationTypes.AUTH.SUCCESS, data.user)
+    dispatch('LOAD_TOKEN')
+    Local.setItem('user', data.user)
+    Cookie.set('user', data.user)
+    if (data instanceof Error) {
+      commit(mutationTypes.AUTH.FAILURE, data)
     }
+    return data
   },
   async SIGN_UP({ commit, dispatch }, { email, password }) {
-    try {
-      commit(mutationTypes.AUTH.PENDING)
-      const data = await firebase.auth().createUserWithEmailAndPassword(email, password)
+    commit(mutationTypes.AUTH.PENDING)
+    const data = await firebase.auth().createUserWithEmailAndPassword(email, password).catch(error => error)
+    if (data instanceof Error) {
+      commit(mutationTypes.AUTH.FAILURE, data)
+    } else {
       const currentUser = firebase.auth().currentUser
       await currentUser.sendEmailVerification()
       commit(mutationTypes.AUTH.SUCCESS, null)
-      return data
-    } catch (error) {
-      commit(mutationTypes.AUTH.FAILURE, error)
-      throw error
     }
+    return data
   },
   INIT_AUTH({ commit, dispatch }, req) {
     let user = null

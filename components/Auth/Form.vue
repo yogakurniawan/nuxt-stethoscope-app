@@ -49,12 +49,12 @@
 </template>
 
 <script>
-import { Validator } from "vee-validate";
-import ModalInfo from "~/components/Modal/Info";
-import ModalConfirmation from "~/components/Modal/Confirmation";
-import AppButton from "~/components/Button";
-import Spinner from "~/components/Spinner";
-import AppInput from "~/components/Forms/Input";
+import { Validator } from "vee-validate"
+import ModalInfo from "~/components/Modal/Info"
+import ModalConfirmation from "~/components/Modal/Confirmation"
+import AppButton from "~/components/Button"
+import Spinner from "~/components/Spinner"
+import AppInput from "~/components/Forms/Input"
 
 export default {
   name: "AuthForm",
@@ -111,61 +111,67 @@ export default {
     close() {
       this.show = !this.show;
     },
-    signin() {
-      return this.$store.dispatch("SIGN_IN", {
+    async signin() {
+      const data = await this.$store.dispatch("SIGN_IN", {
         email: this.email,
         password: this.password
-      });
+      })
+      if (data instanceof Error) {
+        this.show = true;
+        this.message = data.code
+      } else {
+        const authenticated = this.$store.getters.isAuthenticated
+        const emailVerified = this.$store.getters.isEmailVerified
+        if (authenticated && emailVerified) {
+          this.$router.push("/patients")
+          this.createConfig()
+        }
+        if (!emailVerified) {
+          this.$store.dispatch("SIGN_OUT")
+          this.show = true
+          this.message = "Please verify your email first"
+        }
+      }
     },
-    signup() {
-      return this.$store.dispatch("SIGN_UP", {
+    async signup() {
+      const data = await this.$store.dispatch("SIGN_UP", {
         email: this.email,
         password: this.password
-      });
+      })
+      if (data instanceof Error) {
+        this.show = true;
+        this.message = data.code;
+      } else {
+        this.$router.push("/signup-success")
+      }
     },
     async createConfig() {
-      const url = `${process.env.baseUrl}/config.json`;
-      const user = this.$store.getters.user;
+      const url = `${process.env.baseUrl}/config.json`
+      const user = this.$store.getters.user
       const params = {
         orderBy: JSON.stringify("uid"),
         startAt: JSON.stringify(user.uid),
         endAt: JSON.stringify(user.uid)
       };
-      const response = await this.$axios.$get(url, { params });
+      const response = await this.$axios.$get(url, { params })
       if (!Object.keys(response).length) {
         const data = {
           uid: user.uid,
           completeInitialData: false
         };
-        await this.$axios.$post(url, data);
+        await this.$axios.$post(url, data)
       } else {
       }
     },
     async onSubmit() {
-      try {
-        const result = await this.$validator.validateAll();
-        if (result) {
-          if (this.type === "signin") {
-            await this.signin();
-            const authenticated = this.$store.getters.isAuthenticated;
-            const emailVerified = this.$store.getters.isEmailVerified;
-            if (authenticated && emailVerified) {
-              this.$router.push("/patients");
-              this.createConfig();
-            }
-            if (!emailVerified) {
-              this.$store.dispatch("SIGN_OUT");
-              this.show = true;
-              this.message = "Please verify your email first";
-            }
-          } else {
-            await this.signup();
-            this.$router.push("/signup-success");
-          }
+      const result = await this.$validator.validateAll()
+      if (result) {
+        let authError = false
+        if (this.type === "signin") {
+          this.signin()
+        } else {
+          this.signup()
         }
-      } catch (error) {
-        this.show = true;
-        this.message = error.code;
       }
     }
   }

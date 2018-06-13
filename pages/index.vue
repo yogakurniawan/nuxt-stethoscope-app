@@ -3,6 +3,7 @@
     <div>
       <app-button @click="modifyLion">Modify Lion</app-button>
       <app-button @click="modifyTiger">Modify Tiger</app-button>
+      <input id="title" @input="updateTitle" type="text">
       {{ zoo() }}
       {{ lion }}
     </div>
@@ -29,6 +30,9 @@ export default {
     }
   },
   methods: {
+    updateTitle() {
+      console.log('hello')
+    },
     modifyTiger() {
       console.log('you')
       this.tiger = 'I am tiger'
