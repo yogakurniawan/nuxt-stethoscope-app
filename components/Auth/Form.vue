@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row center-xs">
-      <div class="col-xs-12 col-sm-8 col-md-7 col-lg-5">
+      <div class="col-xs-12 col-sm-8 col-md-7 col-lg-5 auth-max-width">
         <div class="auth-container">
           <div>
             <h1>{{ title }}</h1>
@@ -184,6 +184,10 @@ export default {
   border: 2px solid $secondary;
   border-radius: $border-radius;
   box-shadow: 0 1px 6px rgb(179, 244, 208);
+}
+
+.auth-max-width {
+  max-width: 40em;
 }
 
 .field,
